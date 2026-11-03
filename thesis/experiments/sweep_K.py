@@ -63,6 +63,8 @@ def train_sweep(args, tag):
                 train["steps"] = args.steps
             if args.batch_size:
                 train["batch_size"] = args.batch_size
+            if args.eval_batch:
+                train["eval_batch"] = args.eval_batch
             jobs.append({"task": task_over, "model": mo, "train": train})
             meta.append((name, K, mo.get("n_basis", "")))
     results = run_many(args.config, jobs, args.workers or default_workers(args.threads), args.threads)
@@ -85,6 +87,7 @@ def main():
     ap.add_argument("--nb_ratio", type=float, default=0.25, help="N_b = ratio * K for the proportional variant")
     ap.add_argument("--steps", type=int, default=None)
     ap.add_argument("--batch_size", type=int, default=None)
+    ap.add_argument("--eval_batch", type=int, default=None, help="lower for large K * n_basis to avoid OOM")
     ap.add_argument("--constant_ceiling", type=float, default=None)
     ap.add_argument("--bench_only", action="store_true")
     ap.add_argument("--threads", type=int, default=4)

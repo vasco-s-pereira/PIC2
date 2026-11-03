@@ -29,7 +29,7 @@ DEFAULTS = {
     "train": dict(
         K=128, steps=3000, batch_size=64, lr=1e-3, min_lr=1e-4, warmup=100,
         weight_decay=0.01, betas=[0.9, 0.99], grad_clip=1.0,
-        eval_every=500, eval_size=4096, eval_K=None,   # None -> [K]
+        eval_every=500, eval_size=4096, eval_K=None, eval_batch=512,   # eval_K None -> [K]
         baselines=False, seed=0, device="auto", threads=None,
         out_dir="runs/default", log_every=50, save_model=True,
     ),
@@ -204,7 +204,7 @@ def run(cfg: dict, verbose: bool = True) -> dict:
     model.train()
     for step in range(tc["steps"] + 1):
         if step % tc["eval_every"] == 0 or step == tc["steps"]:
-            ev = evaluator(model, device)
+            ev = evaluator(model, device, batch=tc["eval_batch"])
             for k, r in ev.items():
                 ew.writerow([step, k, r["acc"], r["loss"], r["bayes_acc"], r["gap"]])
             eval_f.flush()

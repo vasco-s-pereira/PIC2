@@ -41,6 +41,7 @@ train:
   eval_every: 500
   eval_size: 4096
   eval_K: null
+  eval_batch: 32
   baselines: false
   seed: 0
   device: auto
