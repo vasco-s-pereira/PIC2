@@ -1,0 +1,26 @@
+{
+ "out_dir": "/home/vasco_s_pereira/PIC2/thesis/runs/ablation_position_only/continuous_pooling=cls_s0",
+ "attention": "continuous",
+ "params": 373784,
+ "train_K": 128,
+ "eval": {
+  "128": {
+   "acc": 0.86279296875,
+   "loss": 0.3337076921015978,
+   "bayes_acc": 0.869140625,
+   "gap": 0.00634765625
+  }
+ },
+ "mean_step_time_s": 0.0286094116080578,
+ "bench": {
+  "step_time_s": 0.04792540829985228,
+  "activation_MB": 162.24414443969727,
+  "peak_cuda_MB": 1421.04150390625
+ },
+ "baselines": {
+  "bayes": 0.8674,
+  "unigram": 0.1253,
+  "binned": 0.8195,
+  "chance": 0.125
+ }
+}

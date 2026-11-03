@@ -1,0 +1,20 @@
+{
+ "out_dir": "/home/vasco_s_pereira/PIC2/thesis/runs/sweepK/discrete_K512",
+ "attention": "discrete",
+ "params": 406152,
+ "train_K": 512,
+ "eval": {
+  "512": {
+   "acc": 0.99169921875,
+   "loss": 0.026427807402797043,
+   "bayes_acc": 0.99951171875,
+   "gap": 0.0078125
+  }
+ },
+ "mean_step_time_s": 0.029339718485207323,
+ "bench": {
+  "step_time_s": 0.028549035400010324,
+  "activation_MB": 282.8381690979004,
+  "peak_cuda_MB": 1197.00048828125
+ }
+}

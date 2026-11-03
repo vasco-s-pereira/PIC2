@@ -1,0 +1,20 @@
+{
+ "out_dir": "/home/vasco_s_pereira/PIC2/thesis/runs/sweepK/discrete_K64",
+ "attention": "discrete",
+ "params": 406152,
+ "train_K": 64,
+ "eval": {
+  "64": {
+   "acc": 0.668701171875,
+   "loss": 0.9355050772428513,
+   "bayes_acc": 0.7373046875,
+   "gap": 0.068603515625
+  }
+ },
+ "mean_step_time_s": 0.0058510167410978494,
+ "bench": {
+  "step_time_s": 0.002970698699937202,
+  "activation_MB": 36.68973159790039,
+  "peak_cuda_MB": 118.90478515625
+ }
+}

@@ -1,0 +1,44 @@
+variant   K   n_basis  step_ms  act_MB 
+discrete  32           14.6555  19.1077
+variant     K   n_basis  step_ms  act_MB 
+cont_fixed  32  32       18.6961  21.1135
+variant    K   n_basis  step_ms  act_MB 
+cont_prop  32  8        18.4430  17.3606
+variant   K   n_basis  step_ms  act_MB 
+discrete  64           32.5073  36.6897
+variant     K   n_basis  step_ms  act_MB 
+cont_fixed  64  32       38.7516  39.8245
+variant    K   n_basis  step_ms  act_MB 
+cont_prop  64  16       33.6106  35.3206
+variant   K    n_basis  step_ms  act_MB 
+discrete  128           71.4153  71.8538
+variant     K    n_basis  step_ms  act_MB 
+cont_fixed  128  32       59.8680  77.2463
+variant    K    n_basis  step_ms  act_MB 
+cont_prop  128  32       59.0306  77.2463
+variant   K    n_basis  step_ms   act_MB  
+discrete  256           122.3754  142.1819
+variant     K    n_basis  step_ms   act_MB  
+cont_fixed  256  32       106.7563  152.0901
+variant    K    n_basis  step_ms   act_MB  
+cont_prop  256  64       118.5488  185.1213
+variant   K    n_basis  step_ms   act_MB  
+discrete  512           315.0032  282.8381
+variant     K    n_basis  step_ms   act_MB  
+cont_fixed  512  32       222.9553  301.7776
+variant    K    n_basis  step_ms   act_MB  
+cont_prop  512  128      363.0997  496.9651
+variant   K     n_basis  step_ms   act_MB  
+discrete  1024           852.1278  564.1506
+variant     K     n_basis  step_ms   act_MB  
+cont_fixed  1024  32       458.0528  601.1526
+variant    K     n_basis  step_ms    act_MB   
+cont_prop  1024  256      1400.7529  1505.0276
+variant   K     n_basis  step_ms    act_MB   
+discrete  2048           2618.2444  1126.7756
+variant     K     n_basis  step_ms    act_MB   
+cont_fixed  2048  32       1354.1312  1199.9026
+variant    K     n_basis  step_ms    act_MB   
+cont_prop  2048  512      6639.3067  5058.6526
+wrote /home/vasco_s_pereira/PIC2/thesis/experiments/out/sweepK_bench.csv
+wrote /home/vasco_s_pereira/PIC2/thesis/experiments/out/sweepK_bench.png

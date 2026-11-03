@@ -1,0 +1,90 @@
+Process SpawnPoolWorker-1:
+Traceback (most recent call last):
+  File "/usr/lib/python3.12/multiprocessing/pool.py", line 131, in worker
+    put((job, i, result))
+  File "/usr/lib/python3.12/multiprocessing/queues.py", line 399, in put
+    self._writer.send_bytes(obj)
+  File "/usr/lib/python3.12/multiprocessing/connection.py", line 200, in send_bytes
+    self._send_bytes(m[offset:offset + size])
+  File "/usr/lib/python3.12/multiprocessing/connection.py", line 427, in _send_bytes
+    self._send(header + buf)
+  File "/usr/lib/python3.12/multiprocessing/connection.py", line 384, in _send
+    n = write(self._handle, buf)
+        ^^^^^^^^^^^^^^^^^^^^^^^^
+BrokenPipeError: [Errno 32] Broken pipe
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/usr/lib/python3.12/multiprocessing/process.py", line 314, in _bootstrap
+    self.run()
+  File "/usr/lib/python3.12/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+  File "/usr/lib/python3.12/multiprocessing/pool.py", line 136, in worker
+    put((job, i, (False, wrapped)))
+  File "/usr/lib/python3.12/multiprocessing/queues.py", line 399, in put
+    self._writer.send_bytes(obj)
+  File "/usr/lib/python3.12/multiprocessing/connection.py", line 200, in send_bytes
+    self._send_bytes(m[offset:offset + size])
+  File "/usr/lib/python3.12/multiprocessing/connection.py", line 427, in _send_bytes
+    self._send(header + buf)
+  File "/usr/lib/python3.12/multiprocessing/connection.py", line 384, in _send
+    n = write(self._handle, buf)
+        ^^^^^^^^^^^^^^^^^^^^^^^^
+BrokenPipeError: [Errno 32] Broken pipe
+[/home/vasco_s_pereira/PIC2/thesis/runs/compare_easy/discrete_s0] discrete | params 406,152 | device cpu | Bayes@K=128: 0.9731
+  step     0 eval K=128: acc 0.1040 (Bayes 0.9731)
+  step   500 eval K=128: acc 0.8364 (Bayes 0.9731)
+  step  1000 eval K=128: acc 0.9094 (Bayes 0.9731)
+  step  1500 eval K=128: acc 0.9075 (Bayes 0.9731)
+  step  2000 eval K=128: acc 0.9163 (Bayes 0.9731)
+  step  2500 eval K=128: acc 0.9326 (Bayes 0.9731)
+  step  3000 eval K=128: acc 0.9487 (Bayes 0.9731)
+  step  3500 eval K=128: acc 0.9521 (Bayes 0.9731)
+  step  4000 eval K=128: acc 0.9524 (Bayes 0.9731)
+Process SpawnPoolWorker-2:
+Traceback (most recent call last):
+  File "/usr/lib/python3.12/multiprocessing/pool.py", line 131, in worker
+    put((job, i, result))
+  File "/usr/lib/python3.12/multiprocessing/queues.py", line 399, in put
+    self._writer.send_bytes(obj)
+  File "/usr/lib/python3.12/multiprocessing/connection.py", line 200, in send_bytes
+    self._send_bytes(m[offset:offset + size])
+  File "/usr/lib/python3.12/multiprocessing/connection.py", line 427, in _send_bytes
+    self._send(header + buf)
+  File "/usr/lib/python3.12/multiprocessing/connection.py", line 384, in _send
+    n = write(self._handle, buf)
+        ^^^^^^^^^^^^^^^^^^^^^^^^
+BrokenPipeError: [Errno 32] Broken pipe
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/usr/lib/python3.12/multiprocessing/process.py", line 314, in _bootstrap
+    self.run()
+  File "/usr/lib/python3.12/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+  File "/usr/lib/python3.12/multiprocessing/pool.py", line 136, in worker
+    put((job, i, (False, wrapped)))
+  File "/usr/lib/python3.12/multiprocessing/queues.py", line 399, in put
+    self._writer.send_bytes(obj)
+  File "/usr/lib/python3.12/multiprocessing/connection.py", line 200, in send_bytes
+    self._send_bytes(m[offset:offset + size])
+  File "/usr/lib/python3.12/multiprocessing/connection.py", line 427, in _send_bytes
+    self._send(header + buf)
+  File "/usr/lib/python3.12/multiprocessing/connection.py", line 384, in _send
+    n = write(self._handle, buf)
+        ^^^^^^^^^^^^^^^^^^^^^^^^
+BrokenPipeError: [Errno 32] Broken pipe
+[/home/vasco_s_pereira/PIC2/thesis/runs/compare_easy/continuous_s0] continuous | params 373,656 | device cpu | Bayes@K=128: 0.9731
+  step     0 eval K=128: acc 0.1445 (Bayes 0.9731)
+  step   500 eval K=128: acc 0.8240 (Bayes 0.9731)
+  step  1000 eval K=128: acc 0.8596 (Bayes 0.9731)
+  step  1500 eval K=128: acc 0.8962 (Bayes 0.9731)
+  step  2000 eval K=128: acc 0.9167 (Bayes 0.9731)
+  step  2500 eval K=128: acc 0.9292 (Bayes 0.9731)
+  step  3000 eval K=128: acc 0.9397 (Bayes 0.9731)
+  step  3500 eval K=128: acc 0.9502 (Bayes 0.9731)
+  step  4000 eval K=128: acc 0.9463 (Bayes 0.9731)
+/usr/lib/python3.12/multiprocessing/resource_tracker.py:254: UserWarning: resource_tracker: There appear to be 6 leaked semaphore objects to clean up at shutdown
+  warnings.warn('resource_tracker: There appear to be %d '

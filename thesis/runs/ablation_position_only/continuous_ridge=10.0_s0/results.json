@@ -1,0 +1,26 @@
+{
+ "out_dir": "/home/vasco_s_pereira/PIC2/thesis/runs/ablation_position_only/continuous_ridge=10.0_s0",
+ "attention": "continuous",
+ "params": 373656,
+ "train_K": 128,
+ "eval": {
+  "128": {
+   "acc": 0.860595703125,
+   "loss": 0.3281485587358475,
+   "bayes_acc": 0.869140625,
+   "gap": 0.008544921875
+  }
+ },
+ "mean_step_time_s": 0.031656886899995094,
+ "bench": {
+  "step_time_s": 0.023172237499966285,
+  "activation_MB": 153.07568740844727,
+  "peak_cuda_MB": 818.423828125
+ },
+ "baselines": {
+  "bayes": 0.8674,
+  "unigram": 0.1253,
+  "binned": 0.8195,
+  "chance": 0.125
+ }
+}

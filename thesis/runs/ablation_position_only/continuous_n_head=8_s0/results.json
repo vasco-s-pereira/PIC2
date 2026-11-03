@@ -1,0 +1,26 @@
+{
+ "out_dir": "/home/vasco_s_pereira/PIC2/thesis/runs/ablation_position_only/continuous_n_head=8_s0",
+ "attention": "continuous",
+ "params": 373672,
+ "train_K": 128,
+ "eval": {
+  "128": {
+   "acc": 0.859375,
+   "loss": 0.3284613098949194,
+   "bayes_acc": 0.869140625,
+   "gap": 0.009765625
+  }
+ },
+ "mean_step_time_s": 0.04058830402101014,
+ "bench": {
+  "step_time_s": 0.02122255270005553,
+  "activation_MB": 186.32568740844727,
+  "peak_cuda_MB": 1258.5654296875
+ },
+ "baselines": {
+  "bayes": 0.8674,
+  "unigram": 0.1253,
+  "binned": 0.8195,
+  "chance": 0.125
+ }
+}

@@ -1,0 +1,25 @@
+{
+ "out_dir": "/home/vasco_s_pereira/PIC2/thesis/runs/compare_easy/discrete_s0",
+ "attention": "discrete",
+ "params": 406152,
+ "train_K": 128,
+ "eval": {
+  "128": {
+   "acc": 0.952392578125,
+   "loss": 0.1324183102697134,
+   "bayes_acc": 0.97314453125,
+   "gap": 0.020751953125
+  }
+ },
+ "mean_step_time_s": 0.567554267525065,
+ "bench": {
+  "step_time_s": 2.2495950473999984,
+  "activation_MB": 142.18310928344727
+ },
+ "baselines": {
+  "bayes": 0.9775,
+  "unigram": 0.9281,
+  "binned": 0.9494,
+  "chance": 0.125
+ }
+}

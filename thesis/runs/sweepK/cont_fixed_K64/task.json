@@ -1,0 +1,94 @@
+{
+ "n_classes": 8,
+ "vocab_size": 32,
+ "concentration": 10.0,
+ "position_only": false,
+ "families": [
+  "linear",
+  "sine",
+  "gmm"
+ ],
+ "match_mean": null,
+ "signal_scale": 1.0,
+ "seed": 0,
+ "f_families": [
+  "linear",
+  "linear",
+  "sine",
+  "sine",
+  "sine",
+  "gmm",
+  "linear",
+  "sine"
+ ],
+ "f_params": [
+  {
+   "family": "linear",
+   "a": -1.8369506907655424,
+   "b": 1.1066298491255413,
+   "_shift": 0.0,
+   "_scale": 1.0
+  },
+  {
+   "family": "linear",
+   "a": -1.637391066300165,
+   "b": 1.1520389471798609,
+   "_shift": 0.0,
+   "_scale": 1.0
+  },
+  {
+   "family": "sine",
+   "omega": 2.2109416451773565,
+   "phi": 3.711570124239206,
+   "_shift": 0.0,
+   "_scale": 1.0
+  },
+  {
+   "family": "sine",
+   "omega": 2.155318974895602,
+   "phi": 2.856305447314809,
+   "_shift": 0.0,
+   "_scale": 1.0
+  },
+  {
+   "family": "sine",
+   "omega": 0.7744513423777675,
+   "phi": 1.8614310638676552,
+   "_shift": 0.0,
+   "_scale": 1.0
+  },
+  {
+   "family": "gmm",
+   "weights": [
+    0.5909711507587533,
+    0.40902884924124666
+   ],
+   "centers": [
+    0.8253015581668586,
+    0.43331333598704
+   ],
+   "widths": [
+    0.17681841877410204,
+    0.08982389454972672
+   ],
+   "_lo": 4.085745777298505e-05,
+   "_hi": 1.9357506310382098,
+   "_shift": 0.0,
+   "_scale": 1.0
+  },
+  {
+   "family": "linear",
+   "a": 1.76775834349252,
+   "b": -0.7720218253450348,
+   "_shift": 0.0,
+   "_scale": 1.0
+  },
+  {
+   "family": "sine",
+   "omega": 2.422956226286889,
+   "phi": 0.12683522495473962,
+   "_shift": 0.0,
+   "_scale": 1.0
+  }
+ ]
+}

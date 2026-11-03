@@ -1,0 +1,20 @@
+{
+ "out_dir": "/home/vasco_s_pereira/PIC2/thesis/runs/sweepK/discrete_K2048",
+ "attention": "discrete",
+ "params": 406152,
+ "train_K": 2048,
+ "eval": {
+  "2048": {
+   "acc": 1.0,
+   "loss": 4.4882542127311353e-07,
+   "bayes_acc": 1.0,
+   "gap": 0.0
+  }
+ },
+ "mean_step_time_s": 0.3750903699626605,
+ "bench": {
+  "step_time_s": 0.33455411639988597,
+  "activation_MB": 1126.7756690979004,
+  "peak_cuda_MB": 5796.59814453125
+ }
+}

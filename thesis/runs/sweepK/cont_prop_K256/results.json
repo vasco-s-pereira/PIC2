@@ -1,0 +1,20 @@
+{
+ "out_dir": "/home/vasco_s_pereira/PIC2/thesis/runs/sweepK/cont_prop_K256",
+ "attention": "continuous",
+ "params": 373656,
+ "train_K": 256,
+ "eval": {
+  "256": {
+   "acc": 0.951416015625,
+   "loss": 0.14137608744204044,
+   "bayes_acc": 0.9873046875,
+   "gap": 0.035888671875
+  }
+ },
+ "mean_step_time_s": 0.011063445016787953,
+ "bench": {
+  "step_time_s": 0.009434524900007091,
+  "activation_MB": 185.12134170532227,
+  "peak_cuda_MB": 905.8779296875
+ }
+}

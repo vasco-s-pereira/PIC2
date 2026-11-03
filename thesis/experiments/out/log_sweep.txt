@@ -1,0 +1,263 @@
+[/home/vasco_s_pereira/PIC2/thesis/runs/sweepK/discrete_K32] discrete | params 406,152 | device cuda | Bayes@K=32: 0.5408
+  step     0 eval K=32: acc 0.1204 (Bayes 0.5408)
+  step   500 eval K=32: acc 0.3372 (Bayes 0.5408)
+  step  1000 eval K=32: acc 0.3740 (Bayes 0.5408)
+  step  1500 eval K=32: acc 0.3948 (Bayes 0.5408)
+  step  2000 eval K=32: acc 0.3828 (Bayes 0.5408)
+  step  2500 eval K=32: acc 0.4189 (Bayes 0.5408)
+  step  3000 eval K=32: acc 0.4229 (Bayes 0.5408)
+  step  3500 eval K=32: acc 0.4346 (Bayes 0.5408)
+  step  4000 eval K=32: acc 0.4343 (Bayes 0.5408)
+[/home/vasco_s_pereira/PIC2/thesis/runs/sweepK/cont_fixed_K32] continuous | params 373,656 | device cuda | Bayes@K=32: 0.5408
+  step     0 eval K=32: acc 0.1353 (Bayes 0.5408)
+  step   500 eval K=32: acc 0.3108 (Bayes 0.5408)
+  step  1000 eval K=32: acc 0.3850 (Bayes 0.5408)
+  step  1500 eval K=32: acc 0.4048 (Bayes 0.5408)
+  step  2000 eval K=32: acc 0.4031 (Bayes 0.5408)
+  step  2500 eval K=32: acc 0.4351 (Bayes 0.5408)
+  step  3000 eval K=32: acc 0.4492 (Bayes 0.5408)
+  step  3500 eval K=32: acc 0.4526 (Bayes 0.5408)
+  step  4000 eval K=32: acc 0.4648 (Bayes 0.5408)
+[/home/vasco_s_pereira/PIC2/thesis/runs/sweepK/cont_prop_K32] continuous | params 373,656 | device cuda | Bayes@K=32: 0.5408
+  step     0 eval K=32: acc 0.1357 (Bayes 0.5408)
+  step   500 eval K=32: acc 0.3354 (Bayes 0.5408)
+  step  1000 eval K=32: acc 0.4004 (Bayes 0.5408)
+  step  1500 eval K=32: acc 0.4031 (Bayes 0.5408)
+  step  2000 eval K=32: acc 0.3936 (Bayes 0.5408)
+  step  2500 eval K=32: acc 0.4275 (Bayes 0.5408)
+  step  3000 eval K=32: acc 0.4331 (Bayes 0.5408)
+  step  3500 eval K=32: acc 0.4456 (Bayes 0.5408)
+  step  4000 eval K=32: acc 0.4612 (Bayes 0.5408)
+[/home/vasco_s_pereira/PIC2/thesis/runs/sweepK/discrete_K64] discrete | params 406,152 | device cuda | Bayes@K=64: 0.7373
+  step     0 eval K=64: acc 0.1213 (Bayes 0.7373)
+  step   500 eval K=64: acc 0.4907 (Bayes 0.7373)
+  step  1000 eval K=64: acc 0.5327 (Bayes 0.7373)
+  step  1500 eval K=64: acc 0.5537 (Bayes 0.7373)
+  step  2000 eval K=64: acc 0.6033 (Bayes 0.7373)
+  step  2500 eval K=64: acc 0.6213 (Bayes 0.7373)
+  step  3000 eval K=64: acc 0.6448 (Bayes 0.7373)
+  step  3500 eval K=64: acc 0.6707 (Bayes 0.7373)
+  step  4000 eval K=64: acc 0.6687 (Bayes 0.7373)
+[/home/vasco_s_pereira/PIC2/thesis/runs/sweepK/cont_fixed_K64] continuous | params 373,656 | device cuda | Bayes@K=64: 0.7373
+  step     0 eval K=64: acc 0.1399 (Bayes 0.7373)
+  step   500 eval K=64: acc 0.4817 (Bayes 0.7373)
+  step  1000 eval K=64: acc 0.5054 (Bayes 0.7373)
+  step  1500 eval K=64: acc 0.5444 (Bayes 0.7373)
+  step  2000 eval K=64: acc 0.5479 (Bayes 0.7373)
+  step  2500 eval K=64: acc 0.5813 (Bayes 0.7373)
+  step  3000 eval K=64: acc 0.6055 (Bayes 0.7373)
+  step  3500 eval K=64: acc 0.6169 (Bayes 0.7373)
+  step  4000 eval K=64: acc 0.6265 (Bayes 0.7373)
+[/home/vasco_s_pereira/PIC2/thesis/runs/sweepK/cont_prop_K64] continuous | params 373,656 | device cuda | Bayes@K=64: 0.7373
+  step     0 eval K=64: acc 0.1399 (Bayes 0.7373)
+  step   500 eval K=64: acc 0.4915 (Bayes 0.7373)
+  step  1000 eval K=64: acc 0.5076 (Bayes 0.7373)
+  step  1500 eval K=64: acc 0.5654 (Bayes 0.7373)
+  step  2000 eval K=64: acc 0.5889 (Bayes 0.7373)
+  step  2500 eval K=64: acc 0.5981 (Bayes 0.7373)
+  step  3000 eval K=64: acc 0.6199 (Bayes 0.7373)
+  step  3500 eval K=64: acc 0.6360 (Bayes 0.7373)
+  step  4000 eval K=64: acc 0.6384 (Bayes 0.7373)
+[/home/vasco_s_pereira/PIC2/thesis/runs/sweepK/discrete_K128] discrete | params 406,152 | device cuda | Bayes@K=128: 0.9041
+  step     0 eval K=128: acc 0.1050 (Bayes 0.9041)
+  step   500 eval K=128: acc 0.6738 (Bayes 0.9041)
+  step  1000 eval K=128: acc 0.7278 (Bayes 0.9041)
+  step  1500 eval K=128: acc 0.7686 (Bayes 0.9041)
+  step  2000 eval K=128: acc 0.7898 (Bayes 0.9041)
+  step  2500 eval K=128: acc 0.8228 (Bayes 0.9041)
+  step  3000 eval K=128: acc 0.8298 (Bayes 0.9041)
+  step  3500 eval K=128: acc 0.8503 (Bayes 0.9041)
+  step  4000 eval K=128: acc 0.8542 (Bayes 0.9041)
+[/home/vasco_s_pereira/PIC2/thesis/runs/sweepK/cont_fixed_K128] continuous | params 373,656 | device cuda | Bayes@K=128: 0.9041
+  step     0 eval K=128: acc 0.1555 (Bayes 0.9041)
+  step   500 eval K=128: acc 0.6343 (Bayes 0.9041)
+  step  1000 eval K=128: acc 0.7041 (Bayes 0.9041)
+  step  1500 eval K=128: acc 0.7729 (Bayes 0.9041)
+  step  2000 eval K=128: acc 0.7974 (Bayes 0.9041)
+  step  2500 eval K=128: acc 0.8149 (Bayes 0.9041)
+  step  3000 eval K=128: acc 0.8037 (Bayes 0.9041)
+  step  3500 eval K=128: acc 0.8279 (Bayes 0.9041)
+  step  4000 eval K=128: acc 0.8442 (Bayes 0.9041)
+[/home/vasco_s_pereira/PIC2/thesis/runs/sweepK/cont_prop_K128] continuous | params 373,656 | device cuda | Bayes@K=128: 0.9041
+  step     0 eval K=128: acc 0.1555 (Bayes 0.9041)
+  step   500 eval K=128: acc 0.7036 (Bayes 0.9041)
+  step  1000 eval K=128: acc 0.7012 (Bayes 0.9041)
+  step  1500 eval K=128: acc 0.7686 (Bayes 0.9041)
+  step  2000 eval K=128: acc 0.8042 (Bayes 0.9041)
+  step  2500 eval K=128: acc 0.8120 (Bayes 0.9041)
+  step  3000 eval K=128: acc 0.8066 (Bayes 0.9041)
+  step  3500 eval K=128: acc 0.8271 (Bayes 0.9041)
+  step  4000 eval K=128: acc 0.8376 (Bayes 0.9041)
+[/home/vasco_s_pereira/PIC2/thesis/runs/sweepK/discrete_K256] discrete | params 406,152 | device cuda | Bayes@K=256: 0.9873
+  step     0 eval K=256: acc 0.1150 (Bayes 0.9873)
+  step   500 eval K=256: acc 0.7922 (Bayes 0.9873)
+  step  1000 eval K=256: acc 0.8357 (Bayes 0.9873)
+  step  1500 eval K=256: acc 0.9114 (Bayes 0.9873)
+  step  2000 eval K=256: acc 0.9285 (Bayes 0.9873)
+  step  2500 eval K=256: acc 0.9438 (Bayes 0.9873)
+  step  3000 eval K=256: acc 0.9612 (Bayes 0.9873)
+  step  3500 eval K=256: acc 0.9543 (Bayes 0.9873)
+  step  4000 eval K=256: acc 0.9648 (Bayes 0.9873)
+[/home/vasco_s_pereira/PIC2/thesis/runs/sweepK/cont_fixed_K256] continuous | params 373,656 | device cuda | Bayes@K=256: 0.9873
+  step     0 eval K=256: acc 0.1619 (Bayes 0.9873)
+  step   500 eval K=256: acc 0.7827 (Bayes 0.9873)
+  step  1000 eval K=256: acc 0.8472 (Bayes 0.9873)
+  step  1500 eval K=256: acc 0.8940 (Bayes 0.9873)
+  step  2000 eval K=256: acc 0.9277 (Bayes 0.9873)
+  step  2500 eval K=256: acc 0.9456 (Bayes 0.9873)
+  step  3000 eval K=256: acc 0.9407 (Bayes 0.9873)
+  step  3500 eval K=256: acc 0.9424 (Bayes 0.9873)
+  step  4000 eval K=256: acc 0.9465 (Bayes 0.9873)
+[/home/vasco_s_pereira/PIC2/thesis/runs/sweepK/cont_prop_K256] continuous | params 373,656 | device cuda | Bayes@K=256: 0.9873
+  step     0 eval K=256: acc 0.1619 (Bayes 0.9873)
+  step   500 eval K=256: acc 0.7214 (Bayes 0.9873)
+  step  1000 eval K=256: acc 0.8406 (Bayes 0.9873)
+  step  1500 eval K=256: acc 0.9092 (Bayes 0.9873)
+  step  2000 eval K=256: acc 0.9297 (Bayes 0.9873)
+  step  2500 eval K=256: acc 0.9521 (Bayes 0.9873)
+  step  3000 eval K=256: acc 0.9500 (Bayes 0.9873)
+  step  3500 eval K=256: acc 0.9436 (Bayes 0.9873)
+  step  4000 eval K=256: acc 0.9514 (Bayes 0.9873)
+[/home/vasco_s_pereira/PIC2/thesis/runs/sweepK/discrete_K512] discrete | params 406,152 | device cuda | Bayes@K=512: 0.9995
+  step     0 eval K=512: acc 0.1082 (Bayes 0.9995)
+  step   500 eval K=512: acc 0.8728 (Bayes 0.9995)
+  step  1000 eval K=512: acc 0.9363 (Bayes 0.9995)
+  step  1500 eval K=512: acc 0.8640 (Bayes 0.9995)
+  step  2000 eval K=512: acc 0.9866 (Bayes 0.9995)
+  step  2500 eval K=512: acc 0.9829 (Bayes 0.9995)
+  step  3000 eval K=512: acc 0.9856 (Bayes 0.9995)
+  step  3500 eval K=512: acc 0.9934 (Bayes 0.9995)
+  step  4000 eval K=512: acc 0.9917 (Bayes 0.9995)
+[/home/vasco_s_pereira/PIC2/thesis/runs/sweepK/cont_fixed_K512] continuous | params 373,656 | device cuda | Bayes@K=512: 0.9995
+  step     0 eval K=512: acc 0.1794 (Bayes 0.9995)
+  step   500 eval K=512: acc 0.9341 (Bayes 0.9995)
+  step  1000 eval K=512: acc 0.9551 (Bayes 0.9995)
+  step  1500 eval K=512: acc 0.9263 (Bayes 0.9995)
+  step  2000 eval K=512: acc 0.9934 (Bayes 0.9995)
+  step  2500 eval K=512: acc 0.9893 (Bayes 0.9995)
+  step  3000 eval K=512: acc 0.9897 (Bayes 0.9995)
+  step  3500 eval K=512: acc 0.9927 (Bayes 0.9995)
+  step  4000 eval K=512: acc 0.9958 (Bayes 0.9995)
+[/home/vasco_s_pereira/PIC2/thesis/runs/sweepK/cont_prop_K512] continuous | params 373,656 | device cuda | Bayes@K=512: 0.9995
+  step     0 eval K=512: acc 0.1797 (Bayes 0.9995)
+  step   500 eval K=512: acc 0.8540 (Bayes 0.9995)
+  step  1000 eval K=512: acc 0.9661 (Bayes 0.9995)
+  step  1500 eval K=512: acc 0.9827 (Bayes 0.9995)
+  step  2000 eval K=512: acc 0.9866 (Bayes 0.9995)
+  step  2500 eval K=512: acc 0.9700 (Bayes 0.9995)
+  step  3000 eval K=512: acc 0.9841 (Bayes 0.9995)
+  step  3500 eval K=512: acc 0.9939 (Bayes 0.9995)
+  step  4000 eval K=512: acc 0.9944 (Bayes 0.9995)
+[/home/vasco_s_pereira/PIC2/thesis/runs/sweepK/discrete_K1024] discrete | params 406,152 | device cuda | Bayes@K=1024: 1.0000
+  step     0 eval K=1024: acc 0.1282 (Bayes 1.0000)
+  step   500 eval K=1024: acc 0.8997 (Bayes 1.0000)
+  step  1000 eval K=1024: acc 0.9622 (Bayes 1.0000)
+  step  1500 eval K=1024: acc 0.9651 (Bayes 1.0000)
+  step  2000 eval K=1024: acc 0.9988 (Bayes 1.0000)
+  step  2500 eval K=1024: acc 0.9976 (Bayes 1.0000)
+  step  3000 eval K=1024: acc 0.9990 (Bayes 1.0000)
+  step  3500 eval K=1024: acc 1.0000 (Bayes 1.0000)
+  step  4000 eval K=1024: acc 0.9995 (Bayes 1.0000)
+[/home/vasco_s_pereira/PIC2/thesis/runs/sweepK/cont_fixed_K1024] continuous | params 373,656 | device cuda | Bayes@K=1024: 1.0000
+  step     0 eval K=1024: acc 0.1689 (Bayes 1.0000)
+  step   500 eval K=1024: acc 0.9741 (Bayes 1.0000)
+  step  1000 eval K=1024: acc 0.9932 (Bayes 1.0000)
+  step  1500 eval K=1024: acc 0.9910 (Bayes 1.0000)
+  step  2000 eval K=1024: acc 0.9907 (Bayes 1.0000)
+  step  2500 eval K=1024: acc 0.9988 (Bayes 1.0000)
+  step  3000 eval K=1024: acc 0.9980 (Bayes 1.0000)
+  step  3500 eval K=1024: acc 1.0000 (Bayes 1.0000)
+  step  4000 eval K=1024: acc 0.9985 (Bayes 1.0000)
+[/home/vasco_s_pereira/PIC2/thesis/runs/sweepK/cont_prop_K1024] continuous | params 373,656 | device cuda | Bayes@K=1024: 1.0000
+  step     0 eval K=1024: acc 0.1689 (Bayes 1.0000)
+  step   500 eval K=1024: acc 0.8606 (Bayes 1.0000)
+  step  1000 eval K=1024: acc 0.9778 (Bayes 1.0000)
+  step  1500 eval K=1024: acc 0.9919 (Bayes 1.0000)
+  step  2000 eval K=1024: acc 0.9973 (Bayes 1.0000)
+  step  2500 eval K=1024: acc 0.9929 (Bayes 1.0000)
+  step  3000 eval K=1024: acc 0.9985 (Bayes 1.0000)
+  step  3500 eval K=1024: acc 0.9995 (Bayes 1.0000)
+  step  4000 eval K=1024: acc 0.9993 (Bayes 1.0000)
+[/home/vasco_s_pereira/PIC2/thesis/runs/sweepK/discrete_K2048] discrete | params 406,152 | device cuda | Bayes@K=2048: 1.0000
+  step     0 eval K=2048: acc 0.1282 (Bayes 1.0000)
+  step   500 eval K=2048: acc 0.9980 (Bayes 1.0000)
+  step  1000 eval K=2048: acc 0.9956 (Bayes 1.0000)
+  step  1500 eval K=2048: acc 0.9995 (Bayes 1.0000)
+  step  2000 eval K=2048: acc 0.9998 (Bayes 1.0000)
+  step  2500 eval K=2048: acc 1.0000 (Bayes 1.0000)
+  step  3000 eval K=2048: acc 1.0000 (Bayes 1.0000)
+  step  3500 eval K=2048: acc 1.0000 (Bayes 1.0000)
+  step  4000 eval K=2048: acc 1.0000 (Bayes 1.0000)
+[/home/vasco_s_pereira/PIC2/thesis/runs/sweepK/cont_fixed_K2048] continuous | params 373,656 | device cuda | Bayes@K=2048: 1.0000
+  step     0 eval K=2048: acc 0.1650 (Bayes 1.0000)
+  step   500 eval K=2048: acc 0.9971 (Bayes 1.0000)
+  step  1000 eval K=2048: acc 0.9990 (Bayes 1.0000)
+  step  1500 eval K=2048: acc 0.9675 (Bayes 1.0000)
+  step  2000 eval K=2048: acc 0.9861 (Bayes 1.0000)
+  step  2500 eval K=2048: acc 0.9988 (Bayes 1.0000)
+  step  3000 eval K=2048: acc 1.0000 (Bayes 1.0000)
+  step  3500 eval K=2048: acc 1.0000 (Bayes 1.0000)
+  step  4000 eval K=2048: acc 1.0000 (Bayes 1.0000)
+[/home/vasco_s_pereira/PIC2/thesis/runs/sweepK/cont_prop_K2048] continuous | params 373,656 | device cuda | Bayes@K=2048: 1.0000
+Traceback (most recent call last):
+  File "/home/vasco_s_pereira/PIC2/thesis/experiments/sweep_K.py", line 113, in <module>
+    ax.grid(alpha=0.3)
+^^^^^^
+  File "/home/vasco_s_pereira/PIC2/thesis/experiments/sweep_K.py", line 91, in main
+    ap.add_argument("--workers", type=int, default=None)
+                                               ^^^^^^^^^^
+  File "/home/vasco_s_pereira/PIC2/thesis/experiments/sweep_K.py", line 63, in train_sweep
+    train["steps"] = args.steps
+  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/vasco_s_pereira/PIC2/thesis/experiments/common.py", line 31, in run_many
+    return [_job(a) for a in args]
+            ^^^^^^^
+  File "/home/vasco_s_pereira/PIC2/thesis/experiments/common.py", line 24, in _job
+    return run(cfg)
+           ^^^^^^^^
+  File "/home/vasco_s_pereira/PIC2/thesis/train.py", line 207, in run
+    ev = evaluator(model, device)
+         ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/vasco_s_pereira/PIC2/thesis/.venv/lib/python3.12/site-packages/torch/utils/_contextlib.py", line 124, in decorate_context
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/vasco_s_pereira/PIC2/thesis/train.py", line 153, in __call__
+    logits = model(xb)
+             ^^^^^^^^^
+  File "/home/vasco_s_pereira/PIC2/thesis/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1779, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/vasco_s_pereira/PIC2/thesis/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1790, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/vasco_s_pereira/PIC2/thesis/model/classifier.py", line 86, in forward
+    x = blk(x, n_prefix=n_prefix)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/vasco_s_pereira/PIC2/thesis/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1779, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/vasco_s_pereira/PIC2/thesis/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1790, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/vasco_s_pereira/PIC2/thesis/model/blocks.py", line 38, in forward
+    x = x + self.attn(self.ln_1(x), n_prefix=n_prefix)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/vasco_s_pereira/PIC2/thesis/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1779, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/vasco_s_pereira/PIC2/thesis/.venv/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1790, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/vasco_s_pereira/PIC2/thesis/model/attn_continuous.py", line 98, in forward
+    w = self.basis.expected_psi(mu, var)                              # (Bsz, H, T, N_b)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/vasco_s_pereira/PIC2/thesis/model/attn_continuous.py", line 60, in expected_psi
+    return gaussian_pdf(mu[..., None], self.centers.to(mu.dtype), var[..., None] + self.sigma ** 2)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/vasco_s_pereira/PIC2/thesis/model/attn_continuous.py", line 18, in gaussian_pdf
+    return torch.exp(-0.5 * (x - mean) ** 2 / var) / (2 * math.pi * var) ** 0.5
+                            ~~~~~~~~~~~^^~~
+  File "/home/vasco_s_pereira/PIC2/thesis/.venv/lib/python3.12/site-packages/torch/_tensor.py", line 47, in wrapped
+    return f(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+torch.OutOfMemoryError: CUDA out of memory. Tried to allocate 8.00 GiB. GPU 0 has a total capacity of 7.96 GiB of which 0 bytes is free. Including non-PyTorch memory, this process has 17179869184.00 GiB memory in use. Of the allocated memory 16.37 GiB is allocated by PyTorch, and 564.86 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://docs.pytorch.org/docs/stable/notes/cuda.html#optimizing-memory-usage-with-pytorch-cuda-alloc-conf)

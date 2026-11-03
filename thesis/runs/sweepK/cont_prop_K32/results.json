@@ -1,0 +1,20 @@
+{
+ "out_dir": "/home/vasco_s_pereira/PIC2/thesis/runs/sweepK/cont_prop_K32",
+ "attention": "continuous",
+ "params": 373656,
+ "train_K": 32,
+ "eval": {
+  "32": {
+   "acc": 0.461181640625,
+   "loss": 1.4848766326904297,
+   "bayes_acc": 0.540771484375,
+   "gap": 0.07958984375
+  }
+ },
+ "mean_step_time_s": 0.009336565332326206,
+ "bench": {
+  "step_time_s": 0.006254578199968819,
+  "activation_MB": 17.360599517822266,
+  "peak_cuda_MB": 80.9306640625
+ }
+}

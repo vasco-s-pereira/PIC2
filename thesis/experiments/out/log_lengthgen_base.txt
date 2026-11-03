@@ -1,0 +1,33 @@
+[/home/vasco_s_pereira/PIC2/thesis/runs/lengthgen_base/continuous_K128_s0] continuous | params 373,656 | device cuda | Bayes@K=128: 0.9041
+  step     0 eval K=32: acc 0.1353 (Bayes 0.5408) K=64: acc 0.1399 (Bayes 0.7373) K=128: acc 0.1555 (Bayes 0.9041) K=256: acc 0.1619 (Bayes 0.9873) K=512: acc 0.1794 (Bayes 0.9995) K=1024: acc 0.1689 (Bayes 1.0000)
+  step   500 eval K=32: acc 0.1997 (Bayes 0.5408) K=64: acc 0.5034 (Bayes 0.7373) K=128: acc 0.6719 (Bayes 0.9041) K=256: acc 0.8108 (Bayes 0.9873) K=512: acc 0.9111 (Bayes 0.9995) K=1024: acc 0.9678 (Bayes 1.0000)
+  step  1000 eval K=32: acc 0.2551 (Bayes 0.5408) K=64: acc 0.5791 (Bayes 0.7373) K=128: acc 0.7820 (Bayes 0.9041) K=256: acc 0.9094 (Bayes 0.9873) K=512: acc 0.9807 (Bayes 0.9995) K=1024: acc 0.9985 (Bayes 1.0000)
+  step  1500 eval K=32: acc 0.2952 (Bayes 0.5408) K=64: acc 0.6260 (Bayes 0.7373) K=128: acc 0.7920 (Bayes 0.9041) K=256: acc 0.9053 (Bayes 0.9873) K=512: acc 0.9707 (Bayes 0.9995) K=1024: acc 0.9937 (Bayes 1.0000)
+  step  2000 eval K=32: acc 0.2800 (Bayes 0.5408) K=64: acc 0.6287 (Bayes 0.7373) K=128: acc 0.8044 (Bayes 0.9041) K=256: acc 0.9243 (Bayes 0.9873) K=512: acc 0.9707 (Bayes 0.9995) K=1024: acc 0.9910 (Bayes 1.0000)
+  step  2500 eval K=32: acc 0.3000 (Bayes 0.5408) K=64: acc 0.6492 (Bayes 0.7373) K=128: acc 0.8313 (Bayes 0.9041) K=256: acc 0.9534 (Bayes 0.9873) K=512: acc 0.9929 (Bayes 0.9995) K=1024: acc 1.0000 (Bayes 1.0000)
+  step  3000 eval K=32: acc 0.3794 (Bayes 0.5408) K=64: acc 0.6692 (Bayes 0.7373) K=128: acc 0.8367 (Bayes 0.9041) K=256: acc 0.9617 (Bayes 0.9873) K=512: acc 0.9954 (Bayes 0.9995) K=1024: acc 1.0000 (Bayes 1.0000)
+  step  3500 eval K=32: acc 0.3013 (Bayes 0.5408) K=64: acc 0.6836 (Bayes 0.7373) K=128: acc 0.8594 (Bayes 0.9041) K=256: acc 0.9761 (Bayes 0.9873) K=512: acc 0.9988 (Bayes 0.9995) K=1024: acc 1.0000 (Bayes 1.0000)
+  step  4000 eval K=32: acc 0.2773 (Bayes 0.5408) K=64: acc 0.6836 (Bayes 0.7373) K=128: acc 0.8713 (Bayes 0.9041) K=256: acc 0.9753 (Bayes 0.9873) K=512: acc 0.9988 (Bayes 0.9995) K=1024: acc 1.0000 (Bayes 1.0000)
+  step  4500 eval K=32: acc 0.3345 (Bayes 0.5408) K=64: acc 0.6804 (Bayes 0.7373) K=128: acc 0.8459 (Bayes 0.9041) K=256: acc 0.9546 (Bayes 0.9873) K=512: acc 0.9915 (Bayes 0.9995) K=1024: acc 1.0000 (Bayes 1.0000)
+  step  5000 eval K=32: acc 0.3120 (Bayes 0.5408) K=64: acc 0.6895 (Bayes 0.7373) K=128: acc 0.8650 (Bayes 0.9041) K=256: acc 0.9678 (Bayes 0.9873) K=512: acc 0.9983 (Bayes 0.9995) K=1024: acc 1.0000 (Bayes 1.0000)
+  step  5500 eval K=32: acc 0.3425 (Bayes 0.5408) K=64: acc 0.6875 (Bayes 0.7373) K=128: acc 0.8655 (Bayes 0.9041) K=256: acc 0.9739 (Bayes 0.9873) K=512: acc 0.9990 (Bayes 0.9995) K=1024: acc 1.0000 (Bayes 1.0000)
+  step  6000 eval K=32: acc 0.3218 (Bayes 0.5408) K=64: acc 0.6958 (Bayes 0.7373) K=128: acc 0.8782 (Bayes 0.9041) K=256: acc 0.9824 (Bayes 0.9873) K=512: acc 0.9988 (Bayes 0.9995) K=1024: acc 1.0000 (Bayes 1.0000)
+  step  6500 eval K=32: acc 0.3154 (Bayes 0.5408) K=64: acc 0.7039 (Bayes 0.7373) K=128: acc 0.8823 (Bayes 0.9041) K=256: acc 0.9824 (Bayes 0.9873) K=512: acc 0.9995 (Bayes 0.9995) K=1024: acc 1.0000 (Bayes 1.0000)
+  step  7000 eval K=32: acc 0.3062 (Bayes 0.5408) K=64: acc 0.7046 (Bayes 0.7373) K=128: acc 0.8835 (Bayes 0.9041) K=256: acc 0.9834 (Bayes 0.9873) K=512: acc 0.9993 (Bayes 0.9995) K=1024: acc 1.0000 (Bayes 1.0000)
+  step  7500 eval K=32: acc 0.2993 (Bayes 0.5408) K=64: acc 0.7078 (Bayes 0.7373) K=128: acc 0.8875 (Bayes 0.9041) K=256: acc 0.9839 (Bayes 0.9873) K=512: acc 0.9990 (Bayes 0.9995) K=1024: acc 1.0000 (Bayes 1.0000)
+  step  8000 eval K=32: acc 0.3315 (Bayes 0.5408) K=64: acc 0.7129 (Bayes 0.7373) K=128: acc 0.8857 (Bayes 0.9041) K=256: acc 0.9812 (Bayes 0.9873) K=512: acc 0.9993 (Bayes 0.9995) K=1024: acc 1.0000 (Bayes 1.0000)
+attention   seed  train_K  eval_K  acc     bayes   gap   
+discrete    0     128      32      0.5068  0.5408  0.0339
+discrete    0     128      64      0.7068  0.7373  0.0305
+discrete    0     128      128     0.8840  0.9041  0.0200
+discrete    0     128      256     0.9817  0.9873  0.0056
+discrete    0     128      512     0.9990  0.9995  0.0005
+discrete    0     128      1024    1.0000  1.0000  0.0000
+continuous  0     128      32      0.3315  0.5408  0.2092
+continuous  0     128      64      0.7129  0.7373  0.0244
+continuous  0     128      128     0.8857  0.9041  0.0183
+continuous  0     128      256     0.9812  0.9873  0.0061
+continuous  0     128      512     0.9993  0.9995  0.0002
+continuous  0     128      1024    1.0000  1.0000  0.0000
+wrote /home/vasco_s_pereira/PIC2/thesis/experiments/out/lengthgen_base.csv
+wrote /home/vasco_s_pereira/PIC2/thesis/experiments/out/lengthgen_base.png

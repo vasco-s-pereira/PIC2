@@ -1,0 +1,25 @@
+{
+ "out_dir": "/home/vasco_s_pereira/PIC2/thesis/runs/compare_position_only/continuous_s0",
+ "attention": "continuous",
+ "params": 373656,
+ "train_K": 128,
+ "eval": {
+  "128": {
+   "acc": 0.86572265625,
+   "loss": 0.3245835416018963,
+   "bayes_acc": 0.869140625,
+   "gap": 0.00341796875
+  }
+ },
+ "mean_step_time_s": 0.6953739328744362,
+ "bench": {
+  "step_time_s": 0.21075888959994699,
+  "activation_MB": 153.07568740844727
+ },
+ "baselines": {
+  "bayes": 0.8674,
+  "unigram": 0.1253,
+  "binned": 0.8195,
+  "chance": 0.125
+ }
+}

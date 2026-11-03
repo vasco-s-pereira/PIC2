@@ -1,0 +1,22 @@
+# Sanity configuration: Bayes-optimal ~0.98 at K=128. Both models should get close.
+task:
+  n_classes: 8
+  vocab_size: 32
+  concentration: 6.0
+  position_only: false
+  seed: 0
+model:
+  n_layer: 2
+  n_head: 4
+  n_embd: 128
+  attention: discrete
+  pooling: mean
+  n_basis: 32
+train:
+  K: 128
+  steps: 2000
+  batch_size: 64
+  lr: 1.0e-3
+  eval_every: 500
+  baselines: true
+  out_dir: runs/easy

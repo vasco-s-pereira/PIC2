@@ -1,0 +1,20 @@
+{
+ "out_dir": "/home/vasco_s_pereira/PIC2/thesis/runs/sweepK/cont_fixed_K64",
+ "attention": "continuous",
+ "params": 373656,
+ "train_K": 64,
+ "eval": {
+  "64": {
+   "acc": 0.62646484375,
+   "loss": 1.0359136015176773,
+   "bayes_acc": 0.7373046875,
+   "gap": 0.11083984375
+  }
+ },
+ "mean_step_time_s": 0.009299830180953223,
+ "bench": {
+  "step_time_s": 0.006496817900006136,
+  "activation_MB": 39.824466705322266,
+  "peak_cuda_MB": 158.52734375
+ }
+}
