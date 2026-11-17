@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Discrete vs Continuous Attention — Thesis Explainer</title>
+<script>
+  window.MathJax = { tex: { inlineMath: [['\\(', '\\)']], displayMath: [['\\[', '\\]']] } };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" async></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@highlightjs/cdn-assets@11/styles/github.min.css">
+<script src="https://cdn.jsdelivr.net/npm/@highlightjs/cdn-assets@11/highlight.min.js"></script>
+<script>document.addEventListener("DOMContentLoaded", () => window.hljs && hljs.highlightAll());</script>
+<style>
+  :root { --fg:#1d2330; --muted:#5b6475; --accent:#2f6fdf; --disc:#1f77b4; --cont:#ff7f0e; --bg:#fbfbfd; --card:#fff; --line:#e3e6ee; }
+  * { box-sizing: border-box; }
+  body { margin:0; font: 16px/1.65 -apple-system, "Segoe UI", Inter, Roboto, sans-serif; color:var(--fg); background:var(--bg); }
+  nav { position:fixed; top:0; left:0; bottom:0; width:250px; padding:28px 18px; border-right:1px solid var(--line); background:#fff; overflow-y:auto; font-size:14px; }
+  nav h2 { font-size:13px; letter-spacing:.08em; text-transform:uppercase; color:var(--muted); margin:0 0 12px; }
+  nav a { display:block; color:var(--fg); text-decoration:none; padding:5px 8px; border-radius:6px; }
+  nav a:hover { background:#eef3fd; color:var(--accent); }
+  nav a.sub { padding-left:22px; color:var(--muted); font-size:13px; }
+  main { margin-left:250px; padding:40px 56px 120px; max-width:1180px; }
+  h1 { font-size:34px; line-height:1.2; margin:0 0 6px; }
+  h2 { font-size:26px; margin:64px 0 12px; padding-top:12px; border-top:1px solid var(--line); }
+  h3 { font-size:19px; margin:34px 0 8px; }
+  .subtitle { color:var(--muted); font-size:17px; margin-bottom:28px; }
+  figure { margin:22px 0; background:var(--card); border:1px solid var(--line); border-radius:10px; padding:14px; }
+  figure img { width:100%; display:block; }
+  figcaption { color:var(--muted); font-size:14px; margin-top:8px; }
+  .callout { border-left:4px solid var(--accent); background:#eef3fd; padding:14px 18px; border-radius:6px; margin:18px 0; }
+  .callout.warn { border-color:#d98b00; background:#fff6e5; }
+  .callout.good { border-color:#2a9d59; background:#eaf7ef; }
+  .tldr { background:#fff; border:1px solid var(--line); border-radius:12px; padding:20px 26px; }
+  .tldr li { margin:6px 0; }
+  .grid2 { display:grid; grid-template-columns:1fr 1fr; gap:20px; }
+  .card { background:#fff; border:1px solid var(--line); border-radius:10px; padding:16px 20px; }
+  .card h4 { margin:0 0 6px; }
+  .disc { color:var(--disc); font-weight:600; } .cont { color:var(--cont); font-weight:600; }
+  table { border-collapse:collapse; margin:14px 0; font-size:14.5px; background:#fff; }
+  th, td { border:1px solid var(--line); padding:6px 12px; text-align:left; }
+  th { background:#f3f5f9; }
+  td.num { text-align:right; font-variant-numeric: tabular-nums; }
+  pre { margin:12px 0; border-radius:8px; border:1px solid var(--line); font-size:13.5px; }
+  pre code.hljs { padding:14px 16px; }
+  code { font-family: "JetBrains Mono", Menlo, Consolas, monospace; font-size:.92em; }
+  p code, li code, td code { background:#f0f2f6; padding:1px 5px; border-radius:4px; }
+  .file { font-size:12.5px; color:var(--muted); margin:14px 0 -8px; font-family:monospace; }
+  .pipeline { display:flex; align-items:stretch; gap:8px; flex-wrap:wrap; margin:20px 0; }
+  .pipeline .step { flex:1; min-width:120px; background:#fff; border:1px solid var(--line); border-radius:10px; padding:10px 12px; font-size:13.5px; text-align:center; }
+  .pipeline .step b { display:block; font-size:14px; margin-bottom:3px; }
+  .pipeline .arrow { align-self:center; color:var(--muted); font-size:20px; }
+  .pipeline .step.hl { border:2px solid var(--cont); background:#fff7ef; }
+  details { background:#fff; border:1px solid var(--line); border-radius:8px; padding:10px 16px; margin:14px 0; }
+  details summary { cursor:pointer; font-weight:600; }
+  @media (max-width: 900px) { nav { display:none; } main { margin-left:0; padding:24px; } .grid2 { grid-template-columns:1fr; } }
+</style>
+</head>
+<body>
+
+<nav>
+  <h2>Contents</h2>
+  <a href="#tldr">0. TL;DR</a>
+  <a href="#question">1. Research question</a>
+  <a href="#theory-discrete">2. Theory: discrete attention</a>
+  <a href="#theory-continuous">3. Theory: continuous attention</a>
+  <a class="sub" href="#signal">3.1 States → signal</a>
+  <a class="sub" href="#density">3.2 Gaussian attention</a>
+  <a class="sub" href="#closedform">3.3 Closed-form read-out</a>
+  <a class="sub" href="#cost">3.4 Complexity</a>
+  <a href="#task">4. Theory: the synthetic task</a>
+  <a class="sub" href="#bayes">4.1 Bayes-optimal ceiling</a>
+  <a class="sub" href="#posinfo">4.2 Positional information</a>
+  <a class="sub" href="#posonly">4.3 Position-only variant</a>
+  <a href="#model">5. The model</a>
+  <a href="#protocol">6. Training & evaluation</a>
+  <a href="#results">7. Results so far</a>
+  <a class="sub" href="#r-compare">7.1 Head-to-head</a>
+  <a class="sub" href="#r-heads">7.2 What heads learn</a>
+  <a class="sub" href="#r-length">7.3 Length generalisation</a>
+  <a class="sub" href="#r-cost">7.4 Cost vs K</a>
+  <a class="sub" href="#r-ablations">7.5 Ablations</a>
+  <a href="#next">8. Open questions</a>
+  <a href="#codemap">9. Code map</a>
+</nav>
+
+<main>
+<h1>Discrete vs. Continuous Attention for Sequence Classification</h1>
+<div class="subtitle">An illustrated explainer of the thesis so far: theory, code, and experiments (<code>PIC2/thesis</code>)</div>
+
+<!-- ======================================================================= -->
+<section id="tldr">
+<div class="tldr">
+<h3 style="margin-top:0">TL;DR</h3>
+<ul>
+  <li>The thesis asks whether <b>continuous attention</b> can replace standard softmax attention in a Transformer classifier without losing accuracy, and whether it is cheaper at long lengths. In continuous attention (from the ∞-former), each query attends with a Gaussian density over a continuous-time version of the sequence.</li>
+  <li>To measure this cleanly, the models are tested on a <b>synthetic task with a known Bayes-optimal accuracy</b>. Classes differ by how token statistics vary smoothly with relative position \(t\in[0,1]\). This gives an exact ceiling to measure each model against.</li>
+  <li><b>Accuracy:</b> both models get within about 1 percentage point of the Bayes-optimal accuracy at \(K=128\). On the position-only task, discrete attention scores 0.864, continuous 0.860, and the ceiling is 0.869. Both beat position-aware logistic regression (0.820), so they really do use positional structure.</li>
+  <li><b>Cost:</b> with a fixed number of basis functions (\(N_b=32\)), continuous attention scales linearly in \(K\). A training step at \(K=2048\) takes 54 ms against 335 ms for discrete on GPU (6× faster), and 1.35 s against 2.62 s on CPU. Peak GPU memory, however, is <i>not</i> lower.</li>
+  <li><b>Length generalisation:</b> I trained at \(K=128\) and tested at other lengths. Both models generalise to longer sequences. Continuous attention <b>collapses on shorter sequences</b> (\(K=32\): 0.33 vs 0.51 for discrete), and I discuss a likely cause in §7.3.</li>
+  <li>Continuous attention is <b>robust to its own hyper-parameters</b> (\(N_b\), basis width, ridge). The one exception is the number of heads: with 1 head, it loses 1.7 points.</li>
+</ul>
+</div>
+</section>
+
+<!-- ======================================================================= -->
+<h2 id="question">1. Research question and overall pipeline</h2>
+<p>Standard self-attention compares every token with every other token, so it costs \(O(K^2)\) in the sequence length \(K\). Continuous attention (Martins et al., 2020; the ∞-former, Martins et al., 2022) takes a different route:</p>
+<ol>
+  <li>It compresses the \(K\) hidden states into a smooth function \(\bar X(t)\) described by only \(N_b\) coefficients.</li>
+  <li>Each query then reads from that function with a probability <i>density</i> over \(t\), instead of a probability <i>mass</i> over \(K\) positions.</li>
+</ol>
+<p>The thesis investigates three questions:</p>
+<ol>
+  <li><b>Expressiveness:</b> does this compression lose information that matters for classification?</li>
+  <li><b>Efficiency:</b> does it actually make training faster or cheaper in practice as \(K\) grows?</li>
+  <li><b>Inductive bias:</b> where do the Gaussian heads learn to look, and does continuous time help when sequence lengths change?</li>
+</ol>
+
+<div class="pipeline">
+  <div class="step"><b>Synthetic task</b>class \(n\) → tokens \(x_1..x_K\)<br><small><code>data/synthetic.py</code></small></div>
+  <div class="arrow">→</div>
+  <div class="step"><b>Embed</b>token emb + time enc. \(\mathrm{pos}(t_i)\)<br><small><code>positional.py</code></small></div>
+  <div class="arrow">→</div>
+  <div class="step hl"><b>2 × Block</b>LN → <span class="disc">discrete</span> or <span class="cont">continuous</span> attention → LN → MLP<br><small><code>blocks.py</code>, <code>attn_*.py</code></small></div>
+  <div class="arrow">→</div>
+  <div class="step"><b>Pool</b>mean (or [CLS])</div>
+  <div class="arrow">→</div>
+  <div class="step"><b>Linear head</b>logits over \(N=8\) classes<br><small><code>classifier.py</code></small></div>
+  <div class="arrow">→</div>
+  <div class="step"><b>Compare</b>vs. Bayes-optimal & baselines<br><small><code>train.py</code></small></div>
+</div>
+<p>The only thing that changes between the two models is the attention module (highlighted). Everything else is identical, including the training data stream, seeds, optimiser and evaluation sets. Any difference in results can therefore be attributed to the attention mechanism.</p>
+
+<!-- ======================================================================= -->
+<h2 id="theory-discrete">2. Theory: discrete (softmax) self-attention</h2>
+<p>Let \(X\in\mathbb R^{K\times d}\) be the hidden states. For one head, the model computes queries \(Q=XW_Q\), keys \(K=XW_K\) and values \(V=XW_V\). Each query \(q_i\) produces a probability distribution over the \(K\) positions:</p>
+\[ p_i(j) = \frac{\exp(q_i^\top k_j/\sqrt{d_h})}{\sum_{j'}\exp(q_i^\top k_{j'}/\sqrt{d_h})}, \qquad z_i = \sum_{j=1}^{K} p_i(j)\, v_j = \mathbb E_{j\sim p_i}[v_j]. \]
+<p>It helps to write the output as an <b>expectation</b> of the values under a distribution, because that view generalises directly to continuous attention. Martins et al. show that softmax is the solution of an entropy-regularised maximisation over the probability simplex \(\Delta^K\):</p>
+\[ p_i = \arg\max_{p\in\Delta^{K}} \; \mathbb E_{p}[s_i] + H(p), \qquad s_i(j)=q_i^\top k_j/\sqrt{d_h}, \]
+<p>where \(H\) is the Shannon entropy. Computing all scores \(s_i(j)\) costs \(O(K^2 d)\) time. Fused kernels such as FlashAttention avoid storing the \(K\times K\) matrix, but they cannot avoid computing it.</p>
+
+<p class="file">model/attn_discrete.py</p>
+<pre><code class="language-python">q, k, v = self.c_attn(x).split(self.n_embd, dim=2)
+q, k, v = (z.view(B, T, H, C // H).transpose(1, 2) for z in (q, k, v))
+y = F.scaled_dot_product_attention(q, k, v, dropout_p=..., is_causal=False)  # bidirectional</code></pre>
+<p>This is nanoGPT's attention with the causal mask removed. The task is classification, so every token may see every other token.</p>
+
+<!-- ======================================================================= -->
+<h2 id="theory-continuous">3. Theory: continuous attention</h2>
+<p>Continuous attention replaces the finite set of positions \(\{1..K\}\) with the interval \([0,1]\). Position \(i\) is mapped to time \(t_i = i/K\). There are three ingredients.</p>
+
+<figure>
+  <img src="img/attention_compare.png" alt="discrete vs continuous attention">
+  <figcaption><b>Figure 1.</b> Left: discrete attention puts a probability on each of the \(K\) positions. Middle: continuous attention uses a single Gaussian density per query, controlled by just two numbers, \(\mu\) (where to look) and \(\sigma^2\) (how wide to look). Right: the density becomes a set of weights over the \(N_b\) basis functions in closed form (§3.3).</figcaption>
+</figure>
+
+<h3 id="signal">3.1 From \(K\) states to a continuous signal (ridge regression on radial basis functions)</h3>
+<p>Choose \(N_b\) Gaussian radial basis functions \(\psi_j(t)=\mathcal N(t;\,c_j,\,s^2)\), with centres \(c_j\) spaced evenly in \([0,1]\) and default width \(s=1/N_b\). The value vectors \(V\in\mathbb R^{K\times d}\) are approximated by a smooth signal</p>
+\[ \bar X(t) = B^\top \psi(t), \qquad B\in\mathbb R^{N_b\times d}. \]
+<p>The coefficients \(B\) are found by ridge regression on the grid \(t_1,\dots,t_K\). Let \(F=[\psi(t_1),\dots,\psi(t_K)]\in\mathbb R^{N_b\times K}\). Then</p>
+\[ B = \arg\min_B \|F^\top B - V\|_F^2 + \lambda\|B\|_F^2 \;=\; \underbrace{(FF^\top+\lambda I)^{-1}F}_{G_K\;\in\;\mathbb R^{N_b\times K}}\;V. \]
+<p>The key point is that \(G_K\) depends only on the length \(K\) and not on the data. It is computed once in float64 and cached. Fitting the signal is then a single matrix product, \(B=G_KV\), which costs \(O(KN_bd)\).</p>
+
+<figure>
+  <img src="img/basis_fit.png" alt="basis fit">
+  <figcaption><b>Figure 2.</b> Left: the basis functions. Middle: \(K=64\) noisy states (blue stems) are compressed into a smooth \(\bar X(t)\) (red) with only \(N_b=16\) coefficients, so high-frequency noise is filtered out. Right: the signal is a weighted sum of the bumps.</figcaption>
+</figure>
+
+<p class="file">model/attn_continuous.py — ContinuousBasis</p>
+<pre><code class="language-python">def G(self, K, device, dtype):
+    """G_K = (F F^T + lambda I)^{-1} F, (N_b, K); depends only on K."""
+    t = time_grid(K, device=device, dtype=torch.float64)
+    Fm = self.psi(t).T                                            # (N_b, K)
+    A = Fm @ Fm.T + self.ridge * torch.eye(self.n_basis, ...)
+    self._G_cache[key] = torch.linalg.solve(A, Fm).to(dtype)
+
+def fit(self, X):   # (Bsz, K, d) -> (Bsz, N_b, d)
+    return torch.einsum("nk,bkd->bnd", self.G(X.shape[1], X.device, X.dtype), X)</code></pre>
+
+<h3 id="density">3.2 Gaussian attention densities</h3>
+<p>Discrete attention picks a distribution over \(K\) points. Continuous attention instead picks a density over \([0,1]\). The same entropy-regularised view as in §2 applies, now with differential entropy:</p>
+\[ p_i = \arg\max_{p} \; \mathbb E_{p}[f_i(t)] + H(p) \;\;\Rightarrow\;\; p_i(t)\propto \exp f_i(t). \]
+<p>If the score function is quadratic, \(f_i(t) = -\tfrac{(t-\mu_i)^2}{2\sigma_i^2}\), the solution is exactly a Gaussian \(\mathcal N(\mu_i,\sigma_i^2)\). This is the "continuous softmax". As in the ∞-former, each head maps its query to the two parameters with an affine map and a squashing function:</p>
+\[ \mu_i = \mathrm{sigmoid}(w_\mu^\top q_i + b_\mu)\in(0,1), \qquad \sigma_i^2=\mathrm{softplus}(w_\sigma^\top q_i + b_\sigma) > 0. \]
+<div class="callout"><b>No keys.</b> Unlike discrete attention, <i>where</i> a head looks is decided by the query alone. It does not depend on comparing the query with the content at each location. This is a real change in inductive bias, and it removes the key projection, which is why the continuous model has about 33k fewer parameters (373,656 vs 406,152).</div>
+
+<h3 id="closedform">3.3 The closed-form read-out</h3>
+<p>The context vector is the expected value of the signal under the density:</p>
+\[ z_i = \mathbb E_{p_i}[\bar X(t)] = B^\top\,\mathbb E_{p_i}[\psi(t)]. \]
+<p>Because both \(p_i\) and \(\psi_j\) are Gaussians, the expectation is a Gaussian convolution identity:</p>
+\[ \mathbb E_{t\sim\mathcal N(\mu,\sigma^2)}\big[\mathcal N(t;c_j,s^2)\big] = \int \mathcal N(t;\mu,\sigma^2)\,\mathcal N(t;c_j,s^2)\,dt = \mathcal N(\mu;\,c_j,\,\sigma^2+s^2). \]
+<p>Attention therefore reduces to computing \(N_b\) scalar weights per query and taking one matrix product with \(B\). No integral is evaluated numerically, and the test <code>test_expected_psi_closed_form_matches_numerical_integration</code> confirms the formula against brute-force integration.</p>
+
+<p class="file">model/attn_continuous.py — ContinuousSelfAttention.forward</p>
+<pre><code class="language-python">Bcoef = self.basis.fit(self.v(x[:, n_prefix:]))        # values -> basis coefficients  (Bsz, N_b, d)
+Vh = Bcoef.view(Bsz, -1, H, dh).transpose(1, 2)         # split heads                  (Bsz, H, N_b, dh)
+q = self.q(x).view(Bsz, T, H, dh).transpose(1, 2)
+mu, var = self.density_params(q)                        # sigmoid / softplus           (Bsz, H, T)
+w = self.basis.expected_psi(mu, var)                    # N(mu; c_j, var + s^2)        (Bsz, H, T, N_b)
+z = w @ Vh                                              # read-out                     (Bsz, H, T, dh)</code></pre>
+
+<div class="callout warn"><b>Approximation to keep in mind.</b> The closed form integrates over the whole real line, not over \([0,1]\). A density centred near an edge therefore "reads" some mass from outside the interval, where the signal is only the tails of the boundary basis functions. This matters in practice: several learned heads sit at \(\mu\approx 0.03\) or \(\mu\approx 0.95\) (§7.2).</div>
+
+<h3 id="cost">3.4 Complexity</h3>
+<table>
+  <tr><th></th><th>Discrete</th><th>Continuous (fixed \(N_b\))</th><th>Continuous (\(N_b\propto K\))</th></tr>
+  <tr><td>Scores / weights</td><td>\(O(K^2 d)\)</td><td>\(O(K N_b)\)</td><td>\(O(K^2)\)</td></tr>
+  <tr><td>Fit \(B=G_KV\)</td><td>–</td><td>\(O(K N_b d)\)</td><td>\(O(K^2 d)\)</td></tr>
+  <tr><td>Total per layer</td><td>\(O(K^2d)\)</td><td><b>\(O(KN_bd)\) — linear in \(K\)</b></td><td>\(O(K^2 d)\)</td></tr>
+</table>
+<p>Linear cost comes at a price. A fixed \(N_b\) means fixed resolution: as \(K\) grows, each basis function summarises more and more tokens. Whether that loses accuracy is an empirical question (§7.4).</p>
+
+<!-- ======================================================================= -->
+<h2 id="task">4. Theory: the synthetic task</h2>
+<p>Real datasets make it hard to tell whether a model is limited by its architecture or by noise in the data. The synthetic generator is designed so that the <b>optimal accuracy is known exactly</b>, and so that the useful signal is <b>positional and smooth</b>, which is the regime continuous attention is built for.</p>
+
+<p>Each class \(n\in\{0,\dots,N-1\}\) has two token distributions \(Q_1^{(n)}, Q_2^{(n)}\) over a vocabulary of size \(V\), drawn from a symmetric Dirichlet(\(\alpha\)). It also has a smooth mixing function \(f_n:[0,1]\to[0,1]\), drawn from one of three families: linear ramps, sines, or normalised Gaussian mixtures. Token \(i\) is sampled independently given the class:</p>
+\[ P_n(x_i) = f_n(t_i)\,Q_1^{(n)}(x_i) + \big(1-f_n(t_i)\big)\,Q_2^{(n)}(x_i), \qquad t_i = i/K. \]
+<p>The class is defined on continuous time, so the <b>same classes generate sequences of any length \(K\)</b>. This is what makes the length-generalisation experiment possible.</p>
+
+<figure>
+  <img src="img/task.png" alt="synthetic task">
+  <figcaption><b>Figure 3.</b> The position-only task (<code>configs/position_only.yaml</code>). Top: the 8 mixing functions and the two shared token distributions. Middle: the full per-position token table \(P_n(x_i=v)\) for two classes; the bright bands move with \(f_n(t)\). Bottom: real samples. A single sequence is very noisy, and the class only shows up in statistics accumulated over many positions.</figcaption>
+</figure>
+
+<h3 id="bayes">4.1 Bayes-optimal classifier — the ceiling</h3>
+<p>Tokens are conditionally independent given the class, and the class prior is uniform. The posterior is therefore exact and cheap to compute:</p>
+\[ \log P(n\mid x) = \sum_{i=1}^{K}\log P_n(x_i) - \log\sum_{n'}\exp\Big(\sum_i \log P_{n'}(x_i)\Big). \]
+<p>No classifier can beat \(\arg\max_n P(n\mid x)\) on average. Every experiment therefore reports the <b>gap to Bayes-optimal</b> on the <i>same</i> evaluation sequences. The evaluator even prints a warning if a model beats Bayes by more than 4 standard errors, which would indicate a bug.</p>
+<p class="file">data/synthetic.py</p>
+<pre><code class="language-python">def bayes_log_posterior(self, tokens):
+    logP = self._tables(K)["logP"]                                  # (N, K, V)
+    idx = tokens.cpu().T.unsqueeze(0).expand(self.n_classes, K, B)  # (N, K, B)
+    ll = logP.gather(2, idx).sum(1).T                               # (B, N): sum_i log P_n(x_i)
+    return torch.log_softmax(ll, dim=-1)</code></pre>
+
+<figure>
+  <img src="img/bayes_vs_K.png" alt="Bayes vs K" style="max-width:620px">
+  <figcaption><b>Figure 4.</b> Each token adds independent evidence, so the ceiling rises with \(K\). By \(K\ge 512\), every task is close to trivially solvable. Keep this in mind when reading the length sweeps: a shrinking gap at large \(K\) partly reflects the task getting easier, not only the model getting better.</figcaption>
+</figure>
+
+<h3 id="posinfo">4.2 Positional information</h3>
+<p>To see <i>where</i> in the sequence the classes differ, the code computes the mutual information between the class and the token at each position, under a uniform prior:</p>
+\[ I(n; x_t) = \frac1N\sum_{n}\mathrm{KL}\big(P_n(\cdot\mid t)\,\big\|\,\bar P(\cdot\mid t)\big), \qquad \bar P = \frac1N\sum_n P_n. \]
+<p>This is the grey shaded curve in Figures 3, 8 and 9. A head that "knows what it is doing" might be expected to put its attention mass where \(I\) is high.</p>
+
+<h3 id="posonly">4.3 The position-only variant: forcing the model to use position</h3>
+<p>In the default task, each class has its own \(Q\)'s, so simply counting tokens (ignoring position) already solves most of it. On the easy config, unigram logistic regression reaches 0.928 against a ceiling of 0.973. The position-only variant removes this shortcut in two steps:</p>
+<ol>
+  <li>All classes share the same \(Q_1, Q_2\), so classes differ <i>only</i> in \(f_n\).</li>
+  <li>Each \(f_n\) is rescaled so that \(\int_0^1 f_n(t)\,dt = \tfrac12\).</li>
+</ol>
+<p>Then the expected token frequency is the same for every class:</p>
+\[ \mathbb E\Big[\tfrac1K\textstyle\sum_i \mathbf 1[x_i=v]\Big] \approx \bar f_n\,Q_1(v) + (1-\bar f_n)\,Q_2(v) = \tfrac12 Q_1(v)+\tfrac12 Q_2(v)\quad\forall n. \]
+<p>Unigram counts therefore carry <b>zero</b> information. Unigram logistic regression drops to exactly chance (0.125), while position-binned logistic regression still reaches 0.820. Any model that beats 0.82 must be using positional structure at a finer resolution than 8 bins.</p>
+
+<!-- ======================================================================= -->
+<h2 id="model">5. The model</h2>
+<p>The model is a small nanoGPT-style encoder: 2 layers, 4 heads, \(d=128\), pre-LayerNorm, GELU MLP, non-causal, about 0.4M parameters. Two design choices are specific to this thesis.</p>
+<div class="grid2">
+<div class="card">
+<h4>Time encoding, not index encoding</h4>
+<p>Position enters only through \(t_i=i/K\in[0,1]\), using sinusoidal features at geometric frequencies followed by a linear layer:</p>
+\[ \mathrm{pos}(t) = W\,[\sin\omega_k t,\ \cos\omega_k t]_{k=1}^{16},\quad \omega_k\in[\pi, 32\pi]. \]
+<p>This is defined for every \(K\), and it uses the same time grid as the data generator and the RBF basis. The discrete model is therefore also "resolution-free", which keeps the length-generalisation comparison fair.</p>
+</div>
+<div class="card">
+<h4>Prefix-aware continuous attention</h4>
+<p>With <code>pooling=cls</code>, a learnt [CLS] token is prepended. It is allowed to <i>query</i> the signal, but it is excluded from the signal fit (<code>x[:, n_prefix:]</code>), because it has no position \(t\).</p>
+<p>All layers and heads share one <code>ContinuousBasis</code> object, so \(G_K\) is computed once per length.</p>
+</div>
+</div>
+<p class="file">model/positional.py</p>
+<pre><code class="language-python">freqs = math.pi * torch.logspace(0, math.log2(max_freq), n_freqs, base=2.0)
+...
+def forward(self, t):
+    ang = t[:, None] * self.freqs[None, :]
+    return self.proj(torch.cat([ang.sin(), ang.cos()], dim=-1))</code></pre>
+
+<!-- ======================================================================= -->
+<h2 id="protocol">6. Training & evaluation protocol</h2>
+<ul>
+  <li><b>Infinite data.</b> Every training batch is freshly sampled from the generator, so there is no overfitting to a fixed dataset; the only limit is optimisation. AdamW is used with lr \(10^{-3}\), linear warm-up, cosine decay to \(10^{-4}\), batch size 64, and gradient clipping at 1.0.</li>
+  <li><b>Fixed evaluation sets.</b> There are 4096 sequences per evaluated \(K\), with seeds derived from \((\text{seed}, K)\). Both models and the Bayes classifier are scored on <i>identical</i> sequences.</li>
+  <li><b>Cost measured in a device-independent way.</b> <code>benchmark_step</code> times forward+backward passes, and <code>activation_bytes</code> sums every tensor saved for backward using autograd's saved-tensor hooks. Peak CUDA memory is also recorded when a GPU is available.</li>
+  <li><b>Reproducible runs.</b> Every run writes <code>config.yaml</code>, <code>task.json</code> (all sampled \(f_n\) parameters), logs, <code>results.json</code> and <code>model.pt</code>. <code>experiments/common.run_many</code> reuses finished runs and runs jobs in parallel processes.</li>
+  <li><b>Budgets used.</b> Comparison and length-generalisation runs used 8000 steps; the \(K\)-sweep and ablations used 4000 steps. All results so far use a single seed (seed 0).</li>
+</ul>
+
+<!-- ======================================================================= -->
+<h2 id="results">7. Results so far</h2>
+
+<h3 id="r-compare">7.1 Head-to-head at \(K=128\)</h3>
+<figure>
+  <img src="img/compare_bars.png" alt="compare">
+  <figcaption><b>Figure 5.</b> Final test accuracy against the baselines. On the position-only task, both attention models beat the 8-bin logistic regression by about 4 points and come within 0.5–0.9 points of the ceiling.</figcaption>
+</figure>
+<figure>
+  <img src="img/training_curves.png" alt="training curves">
+  <figcaption><b>Figure 6.</b> Training (faint, smoothed) and evaluation (dots) accuracy. The two mechanisms learn at almost exactly the same speed. Continuous attention is not harder to optimise.</figcaption>
+</figure>
+<table>
+  <tr><th>Task</th><th>Bayes</th><th class="disc">Discrete</th><th class="cont">Continuous</th><th>Unigram LR</th><th>Binned LR</th></tr>
+  <tr><td>easy</td><td class="num">0.973</td><td class="num">0.960</td><td class="num">0.953</td><td class="num">0.928</td><td class="num">0.949</td></tr>
+  <tr><td>position-only</td><td class="num">0.869</td><td class="num">0.864</td><td class="num">0.860</td><td class="num">0.125</td><td class="num">0.820</td></tr>
+</table>
+
+<h3 id="r-heads">7.2 Where do the Gaussian heads look?</h3>
+<p><code>experiments/diagnose.py</code> records \((\mu_i,\sigma_i)\) for every query and shows two things for each head: the average density (red), plotted against the positional information (grey), and \(\mu_i\) as a function of the query's own position \(t_i\).</p>
+<figure>
+  <img src="img/diagnose_position_only.png" alt="diagnose position only">
+  <figcaption><b>Figure 7.</b> The position-only task, continuous model.</figcaption>
+</figure>
+<p>The main observations on the position-only task:</p>
+<ul>
+  <li><b>Layer 0, head 2 has learnt a moving window.</b> Its \(\mu_i\) rises with \(t_i\), so each token looks around its own neighbourhood. This works like a learnt local convolution, which smooths the noisy one-hot tokens into local statistics.</li>
+  <li><b>The other layer-0 heads and every layer-1 head are almost query-independent.</b> Their \(\mu\) is nearly flat in \(t_i\), and in layer 1 they become very sharp (\(\sigma\approx 0.02\)–0.1). Each one pins a fixed spot in time (\(t\approx 0.03, 0.27, 0.7, 0.95\)) and reads the locally smoothed features there. Combined with mean-pooling, the network effectively becomes "sample the smoothed signal at 4 learnt locations and classify".</li>
+  <li>Some of these spots line up with peaks of \(I(n;x_t)\) (for example the end of the sequence), but not all of them. This is worth quantifying further.</li>
+</ul>
+<details>
+<summary>Easy task: the heads behave very differently (click to expand)</summary>
+<figure>
+  <img src="img/diagnose_easy.png" alt="diagnose easy">
+  <figcaption><b>Figure 8.</b> On the easy task, several layer-1 heads learn very large \(\sigma\) (up to about 4, much wider than \([0,1]\)). A density that wide is almost flat, so the head simply averages the whole signal. This matches the theory: here unigram counts are nearly sufficient (0.928), and global averaging is the right strategy. The \(\mu\) values also jump around per query, so the heads are content-driven rather than fixed in position.</figcaption>
+</figure>
+</details>
+
+<h3 id="r-length">7.3 Length generalisation (train at \(K=128\), test elsewhere)</h3>
+<div class="grid2">
+<figure><img src="img/lengthgen_base.png" alt="lengthgen base"><figcaption><b>Figure 9a.</b> Base task.</figcaption></figure>
+<figure><img src="img/lengthgen_position_only.png" alt="lengthgen po"><figcaption><b>Figure 9b.</b> Position-only task.</figcaption></figure>
+</div>
+<table>
+  <tr><th>eval \(K\)</th><th>32</th><th>64</th><th>128 (train)</th><th>256</th><th>512</th><th>1024</th></tr>
+  <tr><td>Bayes (base)</td><td class="num">0.541</td><td class="num">0.737</td><td class="num">0.904</td><td class="num">0.987</td><td class="num">1.000</td><td class="num">1.000</td></tr>
+  <tr><td class="disc">Discrete</td><td class="num">0.507</td><td class="num">0.707</td><td class="num">0.884</td><td class="num">0.982</td><td class="num">0.999</td><td class="num">1.000</td></tr>
+  <tr><td class="cont">Continuous</td><td class="num"><b>0.332</b></td><td class="num">0.713</td><td class="num">0.886</td><td class="num">0.981</td><td class="num">0.999</td><td class="num">1.000</td></tr>
+</table>
+<p>Both models extrapolate to <b>longer</b> sequences essentially perfectly, because of the shared \(t\in[0,1]\) parametrisation. Continuous attention fails on <b>shorter</b> sequences: at \(K=32\) it loses about 20 points on both tasks, while it is fine at \(K=64\).</p>
+
+<div class="callout warn">
+<b>A likely explanation (still a hypothesis, not yet confirmed).</b> The model uses \(N_b=32\) basis functions, so at \(K=32\) the number of samples equals the number of basis functions. Below that point the regression \(F F^\top\) becomes rank-deficient, and only the ridge term \(\lambda=10^{-3}\) keeps it solvable. The repository's own tests already note that "\(N_b=K\) is nearly singular". Figure 10 shows that the fitted signal for the <i>same</i> underlying function shifts noticeably (about 2% at \(K=32\), about 10% at \(K=16\), against about 0.2% at the training length). The downstream layers were trained on the \(K=128\) version of \(\bar X\). Discrete attention has no such fitting step, so it degrades smoothly.
+</div>
+<figure>
+  <img src="img/conditioning.png" alt="conditioning">
+  <figcaption><b>Figure 10.</b> Left: condition number of \(FF^\top\) for \(N_b=32\); it explodes once \(K\le N_b\). Right: how much \(\bar X(t)\) changes when the same smooth signal is sampled at a different \(K\). A direct test of this hypothesis would be to repeat the experiment with \(N_b=16\) and check whether the failure moves to \(K\le 16\).</figcaption>
+</figure>
+
+<h3 id="r-cost">7.4 Accuracy and cost as \(K\) grows (train = eval = \(K\))</h3>
+<p>This sweep compares three variants: <span class="disc">discrete</span>, <span class="cont">cont_fixed</span> (\(N_b=32\) at every \(K\)), and <span style="color:#2ca02c;font-weight:600">cont_prop</span> (\(N_b=K/4\)).</p>
+<figure>
+  <img src="img/cost.png" alt="cost">
+  <figcaption><b>Figure 11.</b> Left: gap to Bayes. Middle: training-step time on GPU. Right: CPU benchmark, with dashed and dotted reference slopes for \(\propto K\) and \(\propto K^2\).</figcaption>
+</figure>
+<table>
+  <tr><th>\(K\)</th><th>Discrete GPU ms</th><th>cont_fixed GPU ms</th><th>Discrete CPU ms</th><th>cont_fixed CPU ms</th><th>Discrete peak CUDA MB</th><th>cont_fixed peak CUDA MB</th></tr>
+  <tr><td>128</td><td class="num">4.4</td><td class="num">6.6</td><td class="num">71</td><td class="num">60</td><td class="num">268</td><td class="num">345</td></tr>
+  <tr><td>512</td><td class="num">28.5</td><td class="num">16.1</td><td class="num">315</td><td class="num">223</td><td class="num">1197</td><td class="num">1499</td></tr>
+  <tr><td>1024</td><td class="num">83.0</td><td class="num">47.4</td><td class="num">852</td><td class="num">458</td><td class="num">2564</td><td class="num">3164</td></tr>
+  <tr><td>2048</td><td class="num">334.6</td><td class="num"><b>54.4</b></td><td class="num">2618</td><td class="num"><b>1354</b></td><td class="num">5797</td><td class="num">6996</td></tr>
+</table>
+<p>What the sweep shows:</p>
+<ul>
+  <li><b>Time.</b> cont_fixed is the only variant that stays close to linear. It overtakes discrete from about \(K=256\) onwards and is 6× faster on GPU at \(K=2048\). For short sequences, discrete is faster, because the fused SDPA kernel is very efficient and continuous attention pays for several unfused einsums.</li>
+  <li><b>Memory does not improve.</b> Saved activations are almost identical for the two models, and peak CUDA memory is actually about 20% <i>higher</i> for continuous. SDPA never stores the \(K\times K\) matrix, so memory for both models is dominated by \(O(Kd)\) terms such as the MLP and LayerNorms. On top of that, continuous attention materialises the \((B,H,T,N_b)\) weight tensor.</li>
+  <li><b>cont_prop is the worst of both.</b> Making \(N_b\) grow with \(K\) brings back quadratic cost, without any accuracy benefit.</li>
+  <li><b>Accuracy.</b> For \(K\) from 64 to 256, continuous trails discrete by 1–4 points of gap (4000 steps, single seed). At \(K=32\) it is actually slightly ahead (gap 0.076 vs 0.106). At \(K\ge 512\), all variants reach the ceiling, but the task itself becomes trivial there (Figure 4). The sweep script has a <code>--constant_ceiling</code> option, which rescales the task so that Bayes ≈ 0.9 at every \(K\). That would give a fair accuracy-vs-length comparison, but it has not been run yet.</li>
+</ul>
+
+<h3 id="r-ablations">7.5 Ablations (position-only task, \(K=128\))</h3>
+<figure>
+  <img src="img/ablations.png" alt="ablations">
+  <figcaption><b>Figure 12.</b> One factor is changed at a time around the base configuration. The dashed line is Bayes-optimal (0.869).</figcaption>
+</figure>
+<ul>
+  <li><b>\(N_b\) from 8 to 96 hardly matters</b> (0.860–0.866). Because the class signal \(f_n\) is smooth, even 8 basis functions capture it. This is the regime where the low-rank compression is "free".</li>
+  <li><b>Basis width:</b> wider is slightly better (0.856 at \(s=0.01\), 0.865 at \(s=0.1\)). Very narrow bumps leave gaps between centres, and the fit becomes noisy.</li>
+  <li><b>Ridge:</b> performance is flat across \(10^{-6}\)–\(1\) and drops only at \(\lambda=10\), where over-smoothing sets in.</li>
+  <li><b>Heads:</b> this is the one factor where continuous attention is clearly more sensitive. With 1 head it scores 0.852 against 0.865 for discrete. A single Gaussian is <i>unimodal</i>, so one head can only look at one place. Discrete softmax can put mass on many separate positions at once, so it does not need multiple heads for that.</li>
+  <li><b>Pooling:</b> mean pooling is slightly better than [CLS] for both models.</li>
+</ul>
+
+<!-- ======================================================================= -->
+<h2 id="next">8. Open questions and natural next steps</h2>
+<div class="grid2">
+<div class="card"><h4>Statistical robustness</h4>All numbers come from a single seed. Many of the differences are below 1 point. With 4096 test sequences, the standard error is about 0.5 points, so 3+ seeds are needed before claiming a winner.</div>
+<div class="card"><h4>Fair length sweep</h4>Run <code>sweep_K.py --constant_ceiling 0.9</code> so that the difficulty stays fixed as \(K\) grows. This separates "the model compresses too much" from "the task got easier".</div>
+<div class="card"><h4>Short-length failure</h4>Test the \(K=N_b\) conditioning hypothesis. Options: evaluate with \(N_b=16\); fit \(B\) with \(N_b=\min(N_b,K/2)\); or train on mixed lengths.</div>
+<div class="card"><h4>Edge truncation</h4>Replace the untruncated closed form with a truncated-Gaussian expectation (or renormalise over \([0,1]\)), and check whether the heads stuck at \(\mu\approx0,1\) change.</div>
+<div class="card"><h4>Multimodal heads</h4>The unimodality limit shows up in the 1-head ablation. Possible fixes are a mixture of Gaussians per head, or sparsemax-style continuous densities (truncated parabola, Martins et al. 2020).</div>
+<div class="card"><h4>Memory claims</h4>Profile and fuse the continuous path (for example, never materialise \((B,H,T,N_b)\)) before claiming any memory benefit over FlashAttention-style discrete attention.</div>
+</div>
+
+<!-- ======================================================================= -->
+<h2 id="codemap">9. Code map & how to reproduce</h2>
+<table>
+  <tr><th>File</th><th>Role</th></tr>
+  <tr><td><code>data/synthetic.py</code></td><td>Task generator, \(f_n\) families, Bayes posterior, positional information, signal-scale calibration, unigram/binned baselines</td></tr>
+  <tr><td><code>model/attn_discrete.py</code></td><td>Bidirectional softmax attention (nanoGPT, SDPA)</td></tr>
+  <tr><td><code>model/attn_continuous.py</code></td><td>RBF basis, cached ridge operator \(G_K\), Gaussian densities, closed-form read-out</td></tr>
+  <tr><td><code>model/positional.py</code></td><td>Time grid \(t_i=i/K\) and the sinusoidal time encoding</td></tr>
+  <tr><td><code>model/blocks.py</code>, <code>classifier.py</code></td><td>Pre-LN blocks with an injected attention module; pooling and classification head</td></tr>
+  <tr><td><code>train.py</code></td><td>Config system (YAML + dotted overrides), training loop, Evaluator against Bayes, cost benchmark</td></tr>
+  <tr><td><code>experiments/*.py</code></td><td><code>compare</code>, <code>length_gen</code>, <code>sweep_K</code>, <code>ablations</code>, <code>diagnose</code></td></tr>
+  <tr><td><code>tests/</code></td><td>Closed form vs numerical integration, reconstruction error, hard-attention limit, generator and model sanity checks</td></tr>
+  <tr><td><code>explainer/make_figures.py</code></td><td>Regenerates every figure in this page</td></tr>
+</table>
+<pre><code class="language-bash">cd thesis
+python experiments/compare.py    --config configs/position_only.yaml
+python experiments/length_gen.py --config configs/position_only.yaml
+python experiments/sweep_K.py    --steps 4000
+python experiments/ablations.py  --config configs/position_only.yaml --steps 4000
+python experiments/diagnose.py   runs/compare_position_only/continuous_s0
+python explainer/make_figures.py   # figures for this page</code></pre>
+
+<h3>References</h3>
+<ul>
+  <li>A. Martins, M. Treviso, A. Farinhas, V. Niculae, M. Figueiredo, P. Aguiar. <i>Sparse and Continuous Attention Mechanisms.</i> NeurIPS 2020.</li>
+  <li>P. H. Martins, Z. Marinho, A. Martins. <i>∞-former: Infinite Memory Transformer.</i> ACL 2022.</li>
+  <li>A. Vaswani et al. <i>Attention Is All You Need.</i> NeurIPS 2017.</li>
+  <li>A. Karpathy. <i>nanoGPT</i> (code base for the blocks).</li>
+</ul>
+</main>
+</body>
+</html>

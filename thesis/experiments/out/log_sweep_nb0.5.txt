@@ -1,0 +1,80 @@
+[/home/vasco_s_pereira/PIC2/thesis/runs/sweepK_nb0.5/cont_prop_K32] continuous | params 373,656 | device cuda | Bayes@K=32: 0.5408
+  step     0 eval K=32: acc 0.1350 (Bayes 0.5408)
+  step   500 eval K=32: acc 0.3281 (Bayes 0.5408)
+  step  1000 eval K=32: acc 0.3926 (Bayes 0.5408)
+  step  1500 eval K=32: acc 0.4028 (Bayes 0.5408)
+  step  2000 eval K=32: acc 0.3921 (Bayes 0.5408)
+  step  2500 eval K=32: acc 0.4314 (Bayes 0.5408)
+  step  3000 eval K=32: acc 0.4294 (Bayes 0.5408)
+  step  3500 eval K=32: acc 0.4443 (Bayes 0.5408)
+  step  4000 eval K=32: acc 0.4568 (Bayes 0.5408)
+[/home/vasco_s_pereira/PIC2/thesis/runs/sweepK_nb0.5/cont_prop_K256] continuous | params 373,656 | device cuda | Bayes@K=256: 0.9873
+  step     0 eval K=256: acc 0.1619 (Bayes 0.9873)
+  step   500 eval K=256: acc 0.8442 (Bayes 0.9873)
+  step  1000 eval K=256: acc 0.8430 (Bayes 0.9873)
+  step  1500 eval K=256: acc 0.9062 (Bayes 0.9873)
+  step  2000 eval K=256: acc 0.9062 (Bayes 0.9873)
+  step  2500 eval K=256: acc 0.9272 (Bayes 0.9873)
+  step  3000 eval K=256: acc 0.9458 (Bayes 0.9873)
+  step  3500 eval K=256: acc 0.9373 (Bayes 0.9873)
+  step  4000 eval K=256: acc 0.9473 (Bayes 0.9873)
+[/home/vasco_s_pereira/PIC2/thesis/runs/sweepK_nb0.5/cont_prop_K128] continuous | params 373,656 | device cuda | Bayes@K=128: 0.9041
+  step     0 eval K=128: acc 0.1555 (Bayes 0.9041)
+  step   500 eval K=128: acc 0.6736 (Bayes 0.9041)
+  step  1000 eval K=128: acc 0.7043 (Bayes 0.9041)
+  step  1500 eval K=128: acc 0.7722 (Bayes 0.9041)
+  step  2000 eval K=128: acc 0.7786 (Bayes 0.9041)
+  step  2500 eval K=128: acc 0.8049 (Bayes 0.9041)
+  step  3000 eval K=128: acc 0.8013 (Bayes 0.9041)
+  step  3500 eval K=128: acc 0.8210 (Bayes 0.9041)
+  step  4000 eval K=128: acc 0.8347 (Bayes 0.9041)
+[/home/vasco_s_pereira/PIC2/thesis/runs/sweepK_nb0.5/cont_prop_K2048] continuous | params 373,656 | device cuda | Bayes@K=2048: 1.0000
+  step     0 eval K=2048: acc 0.1650 (Bayes 1.0000)
+  step   500 eval K=2048: acc 0.9844 (Bayes 1.0000)
+  step  1000 eval K=2048: acc 0.9866 (Bayes 1.0000)
+  step  1500 eval K=2048: acc 0.9937 (Bayes 1.0000)
+  step  2000 eval K=2048: acc 0.9775 (Bayes 1.0000)
+  step  2500 eval K=2048: acc 1.0000 (Bayes 1.0000)
+  step  3000 eval K=2048: acc 0.9998 (Bayes 1.0000)
+  step  3500 eval K=2048: acc 1.0000 (Bayes 1.0000)
+  step  4000 eval K=2048: acc 1.0000 (Bayes 1.0000)
+[/home/vasco_s_pereira/PIC2/thesis/runs/sweepK_nb0.5/cont_prop_K512] continuous | params 373,656 | device cuda | Bayes@K=512: 0.9995
+  step     0 eval K=512: acc 0.1797 (Bayes 0.9995)
+  step   500 eval K=512: acc 0.7854 (Bayes 0.9995)
+  step  1000 eval K=512: acc 0.9695 (Bayes 0.9995)
+  step  1500 eval K=512: acc 0.9414 (Bayes 0.9995)
+  step  2000 eval K=512: acc 0.9734 (Bayes 0.9995)
+  step  2500 eval K=512: acc 0.9729 (Bayes 0.9995)
+  step  3000 eval K=512: acc 0.9871 (Bayes 0.9995)
+  step  3500 eval K=512: acc 0.9900 (Bayes 0.9995)
+  step  4000 eval K=512: acc 0.9917 (Bayes 0.9995)
+[/home/vasco_s_pereira/PIC2/thesis/runs/sweepK_nb0.5/cont_prop_K64] continuous | params 373,656 | device cuda | Bayes@K=64: 0.7373
+  step     0 eval K=64: acc 0.1399 (Bayes 0.7373)
+  step   500 eval K=64: acc 0.4817 (Bayes 0.7373)
+  step  1000 eval K=64: acc 0.5054 (Bayes 0.7373)
+  step  1500 eval K=64: acc 0.5444 (Bayes 0.7373)
+  step  2000 eval K=64: acc 0.5479 (Bayes 0.7373)
+  step  2500 eval K=64: acc 0.5813 (Bayes 0.7373)
+  step  3000 eval K=64: acc 0.6055 (Bayes 0.7373)
+  step  3500 eval K=64: acc 0.6169 (Bayes 0.7373)
+  step  4000 eval K=64: acc 0.6265 (Bayes 0.7373)
+[/home/vasco_s_pereira/PIC2/thesis/runs/sweepK_nb0.5/cont_prop_K1024] continuous | params 373,656 | device cuda | Bayes@K=1024: 1.0000
+  step     0 eval K=1024: acc 0.1689 (Bayes 1.0000)
+  step   500 eval K=1024: acc 0.8765 (Bayes 1.0000)
+  step  1000 eval K=1024: acc 0.9912 (Bayes 1.0000)
+  step  1500 eval K=1024: acc 0.9956 (Bayes 1.0000)
+  step  2000 eval K=1024: acc 0.9990 (Bayes 1.0000)
+  step  2500 eval K=1024: acc 0.9978 (Bayes 1.0000)
+  step  3000 eval K=1024: acc 0.9973 (Bayes 1.0000)
+  step  3500 eval K=1024: acc 1.0000 (Bayes 1.0000)
+  step  4000 eval K=1024: acc 0.9990 (Bayes 1.0000)
+variant    K     n_basis  signal_scale  acc     bayes   gap     step_ms    act_MB     peak_cuda_MB
+cont_prop  32    16       1.0000        0.4568  0.5408  0.0840  44.5402    18.6116    42.0029     
+cont_prop  64    32       1.0000        0.6265  0.7373  0.1108  23.6019    39.8245    66.2158     
+cont_prop  128   64       1.0000        0.8347  0.9041  0.0693  35.6491    94.2620    126.6533    
+cont_prop  256   128      1.0000        0.9473  0.9873  0.0400  136.1860   251.1838   295.5752    
+cont_prop  512   256      1.0000        0.9917  0.9995  0.0078  41.7135    757.2151   945.7974    
+cont_prop  1024  512      1.0000        0.9990  1.0000  0.0010  722.9441   2538.0276  3446.3521   
+cont_prop  2048  1024     1.0000        1.0000  1.0000  0.0000  9200.5766  9174.6526  13033.1665  
+wrote /home/vasco_s_pereira/PIC2/thesis/experiments/out/sweepK_nb0.5.csv
+wrote /home/vasco_s_pereira/PIC2/thesis/experiments/out/sweepK_nb0.5.png

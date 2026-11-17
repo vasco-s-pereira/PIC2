@@ -22,9 +22,10 @@ VARIANT_ORDER = ("discrete", "cont_fixed", "cont_prop")
 
 
 def variants(K, args):
-    return [("discrete", {"attention": "discrete"}),
-            ("cont_fixed", {"attention": "continuous", "n_basis": args.nb_fixed}),
-            ("cont_prop", {"attention": "continuous", "n_basis": max(4, int(round(args.nb_ratio * K)))})]
+    all_variants = [("discrete", {"attention": "discrete"}),
+                    ("cont_fixed", {"attention": "continuous", "n_basis": args.nb_fixed}),
+                    ("cont_prop", {"attention": "continuous", "n_basis": max(4, int(round(args.nb_ratio * K)))})]
+    return [(name, mo) for name, mo in all_variants if name in args.variants]
 
 
 def bench(args):
@@ -90,11 +91,13 @@ def main():
     ap.add_argument("--eval_batch", type=int, default=None, help="lower for large K * n_basis to avoid OOM")
     ap.add_argument("--constant_ceiling", type=float, default=None)
     ap.add_argument("--bench_only", action="store_true")
+    ap.add_argument("--variants", nargs="+", choices=VARIANT_ORDER, default=list(VARIANT_ORDER))
+    ap.add_argument("--tag", default=None, help="name for runs/<tag>/ and out/<tag>.csv; default sweepK[_ceil...]")
     ap.add_argument("--threads", type=int, default=4)
     ap.add_argument("--workers", type=int, default=None)
     args = ap.parse_args()
 
-    tag = "sweepK" + (f"_ceil{args.constant_ceiling}" if args.constant_ceiling else "")
+    tag = args.tag or "sweepK" + (f"_ceil{args.constant_ceiling}" if args.constant_ceiling else "")
     if args.bench_only:
         tag += "_bench"
     rows = bench(args) if args.bench_only else train_sweep(args, tag)
@@ -109,6 +112,8 @@ def main():
     for ax, (key, label) in zip(axes, metrics):
         for name in VARIANT_ORDER:
             pts = [(r["K"], r[key]) for r in rows if r["variant"] == name]
+            if not pts:
+                continue
             ax.plot(*zip(*pts), "o-", label=name)
         ax.set_xscale("log", base=2); ax.set_xlabel("K"); ax.set_ylabel(label)
         if key != "gap":

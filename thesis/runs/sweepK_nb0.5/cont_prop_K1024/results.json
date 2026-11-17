@@ -1,0 +1,20 @@
+{
+ "out_dir": "/home/vasco_s_pereira/PIC2/thesis/runs/sweepK_nb0.5/cont_prop_K1024",
+ "attention": "continuous",
+ "params": 373656,
+ "train_K": 1024,
+ "eval": {
+  "1024": {
+   "acc": 0.9990234375,
+   "loss": 0.003780104676025964,
+   "bayes_acc": 1.0,
+   "gap": 0.0009765625
+  }
+ },
+ "mean_step_time_s": 1.0075772407503714,
+ "bench": {
+  "step_time_s": 0.7229440561999582,
+  "activation_MB": 2538.0275917053223,
+  "peak_cuda_MB": 3446.35205078125
+ }
+}
