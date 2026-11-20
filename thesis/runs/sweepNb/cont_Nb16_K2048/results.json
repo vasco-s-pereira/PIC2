@@ -1,0 +1,20 @@
+{
+ "out_dir": "/home/vasco_s_pereira/PIC2/thesis/runs/sweepNb/cont_Nb16_K2048",
+ "attention": "continuous",
+ "params": 373656,
+ "train_K": 2048,
+ "eval": {
+  "2048": {
+   "acc": 0.999755859375,
+   "loss": 0.0007098559152103334,
+   "bayes_acc": 1.0,
+   "gap": 0.000244140625
+  }
+ },
+ "mean_step_time_s": 0.5330833244628985,
+ "bench": {
+  "step_time_s": 0.5796060092001426,
+  "activation_MB": 1071.2775917053223,
+  "peak_cuda_MB": 7615.96875
+ }
+}

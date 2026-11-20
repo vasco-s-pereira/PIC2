@@ -1,0 +1,20 @@
+{
+ "out_dir": "/home/vasco_s_pereira/PIC2/thesis/runs/sweepNb/cont_Nb8_K512",
+ "attention": "continuous",
+ "params": 373656,
+ "train_K": 512,
+ "eval": {
+  "512": {
+   "acc": 0.993408203125,
+   "loss": 0.022173112516952642,
+   "bayes_acc": 0.99951171875,
+   "gap": 0.006103515625
+  }
+ },
+ "mean_step_time_s": 0.06167985587170845,
+ "bench": {
+  "step_time_s": 0.04111270510002214,
+  "activation_MB": 252.98071670532227,
+  "peak_cuda_MB": 894.53515625
+ }
+}

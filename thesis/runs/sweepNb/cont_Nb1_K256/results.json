@@ -1,0 +1,20 @@
+{
+ "out_dir": "/home/vasco_s_pereira/PIC2/thesis/runs/sweepNb/cont_Nb1_K256",
+ "attention": "continuous",
+ "params": 373656,
+ "train_K": 256,
+ "eval": {
+  "256": {
+   "acc": 0.95361328125,
+   "loss": 0.13388227380346507,
+   "bayes_acc": 0.9873046875,
+   "gap": 0.03369140625
+  }
+ },
+ "mean_step_time_s": 0.03775542634836909,
+ "bench": {
+  "step_time_s": 0.030203534300017053,
+  "activation_MB": 120.09106826782227,
+  "peak_cuda_MB": 329.34619140625
+ }
+}

@@ -256,7 +256,142 @@ def copy_existing():
         shutil.copy(ROOT / src, IMG / dst)
 
 
+def fig_roadmap():
+    from matplotlib.patches import FancyBboxPatch
+    fig, ax = plt.subplots(figsize=(12, 3.2))
+    ax.set_xlim(0, 10); ax.set_ylim(0, 3); ax.axis("off")
+    boxes = [
+        (0.2, 1.0, 2.8, 1.5, "#eaf7ef", "#2a9d59",
+         "Phase 1 — DONE\nContinuous attention\nvs discrete, on synthetic\nclassification"),
+        (3.4, 1.0, 2.8, 1.5, "#eef3fd", "#2f6fdf",
+         "Phase 2 — NEXT\nSequences ↔ continuous\nsignals; reconstruct &\nlength-free decode"),
+        (6.6, 1.0, 2.8, 1.5, "#fff6e5", "#d98b00",
+         "Phase 3 — GOAL\nSignal-to-signal diffusion\nfor language / seq2seq\nof arbitrary length"),
+    ]
+    for x, y, w, h, face, edge, text in boxes:
+        ax.add_patch(FancyBboxPatch((x, y), w, h, boxstyle="round,pad=0.05,rounding_size=0.15",
+                                    facecolor=face, edgecolor=edge, linewidth=2))
+        ax.text(x + w / 2, y + h / 2, text, ha="center", va="center", fontsize=10)
+    for x in (3.1, 6.3):
+        ax.annotate("", xy=(x + 0.25, 1.75), xytext=(x - 0.15, 1.75),
+                    arrowprops=dict(arrowstyle="->", lw=2, color="#5b6475"))
+    ax.text(5, 0.35,
+            "Current code & experiments live entirely in Phase 1; they validate the continuous-time backbone the later phases need.",
+            ha="center", fontsize=9.5, color="#5b6475")
+    fig.savefig(IMG / "roadmap.png"); plt.close(fig)
+
+
+def fig_diffusion_sketch():
+    from matplotlib.patches import FancyBboxPatch
+    fig, axes = plt.subplots(1, 2, figsize=(11.5, 3.6))
+    t = np.linspace(0, 1, 200)
+    x0 = np.sin(2 * np.pi * t) * np.exp(-0.5 * ((t - 0.5) / 0.25) ** 2)
+    for i, (a, lab) in enumerate([(1.0, "x₀"), (0.55, "x_t"), (0.0, "x_T≈ε")]):
+        noise = np.random.default_rng(i + 3).normal(0, 1, size=len(t))
+        y = a * x0 + math.sqrt(max(1 - a * a, 0)) * noise * 0.55
+        axes[0].plot(t, y - i * 2.2, lw=1.5, label=lab)
+    axes[0].annotate("forward q(x_t|x₀)\nadd noise", xy=(0.82, -1.5), xytext=(0.55, 1.0),
+                     fontsize=8, color="#5b6475",
+                     arrowprops=dict(arrowstyle="->", color="#5b6475"))
+    axes[0].annotate("reverse p_θ(x_{t-1}|x_t)\ndenoise", xy=(0.18, -3.2), xytext=(0.35, -4.6),
+                     fontsize=8, color="#2f6fdf",
+                     arrowprops=dict(arrowstyle="->", color="#2f6fdf"))
+    axes[0].set_title("Continuous diffusion (DDPM-style)")
+    axes[0].set_xlabel("coordinate / time"); axes[0].set_yticks([])
+    axes[0].legend(fontsize=8, loc="upper left")
+
+    ax = axes[1]
+    ax.set_xlim(-0.5, 10.5); ax.set_ylim(-0.3, 4.2); ax.axis("off")
+    ax.set_title("Discrete language diffusion (fixed slots)")
+
+    def row(y, chars, mask, lab):
+        ax.text(-0.3, y + 0.35, lab, ha="right", va="center", fontsize=8, color="#5b6475")
+        for i, (ch, m) in enumerate(zip(chars, mask)):
+            face = "#cfcfcf" if m else "#4c78a8"
+            ax.add_patch(FancyBboxPatch((i * 0.85, y), 0.75, 0.7,
+                                        boxstyle="round,pad=0.02,rounding_size=0.08",
+                                        facecolor=face, edgecolor="k", lw=0.8))
+            ax.text(i * 0.85 + 0.375, y + 0.35, "M" if m else ch, ha="center", va="center",
+                    color="#333" if m else "white", fontsize=9, fontweight="bold")
+
+    chars = list("HELLOWORLD!")
+    row(3.1, chars, [0] * 11, "x₀")
+    row(1.7, chars, [0, 0, 1, 0, 1, 0, 0, 1, 0, 0, 0], "x_t")
+    row(0.3, chars, [1] * 11, "x_T")
+    ax.text(5, -0.15, "Length K is fixed; a mask cannot insert or reorder tokens.",
+            ha="center", fontsize=9, color="#8a4b00")
+    fig.tight_layout(); fig.savefig(IMG / "diffusion_sketch.png"); plt.close(fig)
+
+
+def fig_signal_diffusion():
+    from matplotlib.patches import Rectangle
+    fig = plt.figure(figsize=(12.5, 6.8))
+    gs = fig.add_gridspec(2, 5, height_ratios=[1.05, 1.15], hspace=0.55, wspace=0.35)
+    rng = np.random.default_rng(0)
+    K = 12
+    tokens0 = rng.integers(0, 8, size=K)
+    noise = rng.random(K)
+    tokens_mid = tokens0.copy()
+    tokens_mid[noise > 0.45] = rng.integers(0, 8, size=(noise > 0.45).sum())
+    tokens_noise = rng.integers(0, 8, size=K)
+
+    ax = fig.add_subplot(gs[0, :5])
+    ax.set_xlim(-0.5, 14.5); ax.set_ylim(-1.8, 2.8); ax.axis("off")
+    ax.set_title("Discrete language diffusion: tokens live on a fixed-length lattice", fontsize=12, pad=8)
+
+    def draw_seq(ax, y, tokens, title):
+        for i, v in enumerate(tokens):
+            ax.add_patch(Rectangle((i, y), 0.85, 0.85, facecolor=plt.cm.tab10(v / 10),
+                                   edgecolor="k", linewidth=1.2))
+            ax.text(i + 0.42, y + 0.42, str(v), ha="center", va="center", fontsize=8,
+                    color="white", fontweight="bold")
+        ax.text(-0.3, y + 0.4, title, ha="right", va="center", fontsize=9)
+
+    draw_seq(ax, 1.5, tokens0, "clean x₀")
+    draw_seq(ax, 0.2, tokens_mid, "noisy xₜ")
+    draw_seq(ax, -1.1, tokens_noise, "noise x_T")
+    ax.annotate("", xy=(12.2, 1.9), xytext=(12.2, -0.7),
+                arrowprops=dict(arrowstyle="<->", color="#5b6475", lw=1.5))
+    ax.text(12.5, 0.6, "fixed K slots\npositions locked", fontsize=9, color="#5b6475", va="center")
+    ax.text(6, 2.55, "Limitation: length is chosen in advance; tokens cannot insert, delete, or shift.",
+            ha="center", fontsize=10, color="#8a4b00",
+            bbox=dict(boxstyle="round,pad=0.35", facecolor="#fff6e5", edgecolor="#d98b00"))
+
+    t = np.linspace(0, 1, 400)
+    sig = 0.55 * np.sin(2 * math.pi * 1.5 * t) + 0.35 * np.cos(2 * math.pi * 3.2 * t) + 0.15 * np.sin(2 * math.pi * 5 * t)
+    noise_sig = rng.normal(0, 1.0, size=400)
+    panels = [
+        (sig, "clean signal  X̄₀(t)", "C0"),
+        (0.55 * sig + 0.45 * noise_sig, "noisy signal  X̄_τ(t)", "C1"),
+        (noise_sig, "noise  X̄_T(t)", "0.45"),
+    ]
+    for i, (y, title, c) in enumerate(panels):
+        ax = fig.add_subplot(gs[1, i])
+        ax.plot(t, y, color=c, lw=1.6)
+        ax.set_xlim(0, 1); ax.set_ylim(-2.8, 2.8)
+        ax.set_title(title, fontsize=10); ax.set_xlabel("t ∈ [0,1]"); ax.set_yticks([])
+        if i == 0:
+            ax.set_ylabel("ℝᵈ")
+
+    ax = fig.add_subplot(gs[1, 3:])
+    ax.set_xlim(0, 1); ax.set_ylim(-0.2, 1.35); ax.axis("off")
+    ax.set_title("Decode at any length K'  →  tokens of arbitrary length", fontsize=10)
+    for Kp, y0, col in [(6, 0.95, "#1f77b4"), (12, 0.55, "#ff7f0e"), (24, 0.15, "#2ca02c")]:
+        tt = np.arange(Kp) / Kp
+        yy = 0.55 * np.sin(2 * math.pi * 1.5 * tt) + 0.35 * np.cos(2 * math.pi * 3.2 * tt) + 0.15 * np.sin(2 * math.pi * 5 * tt)
+        toks = ((yy - yy.min()) / (yy.max() - yy.min() + 1e-9) * 7).astype(int)
+        for i, v in enumerate(toks):
+            ax.add_patch(Rectangle((i / Kp, y0), 0.7 / Kp, 0.22, facecolor=plt.cm.tab10(v / 10),
+                                   edgecolor="k", linewidth=0.6))
+        ax.text(1.02, y0 + 0.11, f"K'={Kp}", va="center", fontsize=9, color=col)
+
+    fig.suptitle("Thesis idea: diffuse continuous-time signals, then sample a sequence of any length",
+                 fontsize=13, y=0.98)
+    fig.savefig(IMG / "signal_diffusion.png"); plt.close(fig)
+
+
 if __name__ == "__main__":
-    for fn in (fig_task, fig_bayes_vs_K, fig_basis, fig_attention_compare, fig_conditioning,
+    for fn in (fig_roadmap, fig_diffusion_sketch, fig_signal_diffusion,
+               fig_task, fig_bayes_vs_K, fig_basis, fig_attention_compare, fig_conditioning,
                fig_training_curves, fig_compare_bars, fig_ablations, fig_cost, copy_existing):
         fn(); print("done", fn.__name__)
